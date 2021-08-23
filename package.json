@@ -4,7 +4,11 @@
   "description": "A space for JS",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server/server.js",
+    "build": "webpack --config ./webpack.config.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "cross-env NODE_ENV=development concurrently \"webpack serve --open\" \"nodemon server/server.js\"",
+    "prod": "cross-env NODE_ENV=production webpack serve --open"
   },
   "repository": {
     "type": "git",
@@ -15,5 +19,30 @@
   "bugs": {
     "url": "https://github.com/JS-Space44/JS-Space/issues"
   },
-  "homepage": "https://github.com/JS-Space44/JS-Space#readme"
+  "homepage": "https://github.com/JS-Space44/JS-Space#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pg": "^8.7.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.4",
+    "react-router-dom": "^5.2.0",
+    "redux-thunk": "^2.3.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-react": "^7.14.5",
+    "@babel/runtime": "^7.15.3",
+    "babel-loader": "^8.2.2",
+    "concurrently": "^6.2.1",
+    "cross-env": "^7.0.3",
+    "css-loader": "^6.2.0",
+    "nodemon": "^2.0.12",
+    "redux-devtools-extension": "^2.13.9",
+    "style-loader": "^3.2.1",
+    "webpack": "^5.51.1",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.0.0"
+  }
 }
