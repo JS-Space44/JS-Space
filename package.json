@@ -1,0 +1,19 @@
+{
+  "name": "js-space",
+  "version": "1.0.0",
+  "description": "A space for JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JS-Space44/JS-Space.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JS-Space44/JS-Space/issues"
+  },
+  "homepage": "https://github.com/JS-Space44/JS-Space#readme"
+}
