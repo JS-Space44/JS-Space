@@ -8,6 +8,8 @@ lerna-debug.log*
 
 config/
 
+#postgres URL
+postgres
 
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
