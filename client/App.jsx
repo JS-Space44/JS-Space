@@ -26,11 +26,14 @@ function App({ currentProblem }) {
               x: 20,
               y: 20,
               width: '40vw',
-              height: '40vh',
+              // height: '100%',
             }}
             minWidth={200}
             minHeight={190}
+            maxHeight="100%"
             bounds="window"
+            resizeGrid={[10, 10]}
+            dragGrid={[10, 10]}
           >
             <ProblemPrompt currentProblem={currentProblem} />
           </Rnd>
@@ -44,8 +47,9 @@ function App({ currentProblem }) {
             }}
             minWidth={200}
             minHeight={190}
-            bounds="parent"
-            disableDragging
+            bounds="window"
+            resizeGrid={[10, 10]}
+            dragGrid={[10, 10]}
           >
             <ExcalidrawJS />
           </Rnd>
@@ -60,6 +64,8 @@ function App({ currentProblem }) {
             minWidth={500}
             minHeight={190}
             bounds="window"
+            resizeGrid={[10, 10]}
+            dragGrid={[10, 10]}
           >
             <CodeEditor currentProblem={currentProblem} />
           </Rnd>
@@ -74,6 +80,8 @@ function App({ currentProblem }) {
             minWidth={500}
             minHeight={190}
             bounds="window"
+            resizeGrid={[10, 10]}
+            dragGrid={[10, 10]}
           >
             <Terminal currentProblem={currentProblem} />
           </Rnd>

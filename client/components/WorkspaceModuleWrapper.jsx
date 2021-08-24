@@ -16,7 +16,7 @@ export default function WorkspaceModuleWrapper({
       borderColor="gray.200"
       backgroundColor="white"
     >
-      <Flex justifyContent="center" backgroundColor="gray.50">
+      <Flex justifyContent="center" backgroundColor="gray.200">
         <Text>{moduleName}</Text>
         <Text> - </Text>
         <Text>{problemName}</Text>
