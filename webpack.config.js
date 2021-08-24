@@ -1,56 +1,61 @@
-/** @format */
-
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: process.env.NODE_ENV,
-  entry: path.resolve(__dirname, "./client/index.js"),
-
+  // entry
+  entry: ['./client/index.js'],
+  // output
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js",
-    publicPath: "/",
+    path: path.resolve(__dirname, 'build'),
+    filename: 'bundle.js',
   },
-
-  devtool: "eval-source-map",
-
+  devtool: 'eval-source-map',
+  // dev server
+  mode: process.env.NODE_ENV,
   devServer: {
-    host: "localhost",
+    host: 'localhost',
     port: 8080,
-    //contentBase: path.resolve(__dirname, "dist"),
+    contentBase: path.resolve(__dirname, 'build'),
     hot: true,
-    //publicPath: "/dist",
+    publicPath: '/',
+    historyApiFallback: true,
+    inline: true,
+    headers: { 'Access-Control-Allow-Origin': '*' },
     proxy: {
-      "/api**": "http://localhost:3000",
+      '/api/**': {
+        target: 'http://localhost:3000/',
+        secure: false,
+      },
     },
   },
+  // modules
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
-            presets: ["@babel/preset-env", "@babel/preset-react"],
+            presets: ['@babel/preset-env', '@babel/preset-react'],
           },
         },
       },
       {
-        test: /\.css$/,
+        test: /.(css|scss)$/,
         exclude: /node_modules/,
-        use: ["style-loader", "css-loader"],
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },
-
-  resolve: {
-    extensions: ["*", ".js", ".jsx", ".json", ".css"],
-  },
+  // plugins
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "index.html"),
+      template: './client/index.html',
     }),
   ],
+  // file import rules
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
 };
