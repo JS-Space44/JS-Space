@@ -3,8 +3,7 @@
 import * as types from "../constants/actionTypes";
 
 const initalState = {
-    isLoggedIn = false,
-
+  isLoggedIn: false,
 };
 
 const authReducer = (state = initalState, action) => {
@@ -13,8 +12,6 @@ const authReducer = (state = initalState, action) => {
   switch (action.type) {
     // case types.   - dclare switch types here
     case types.SIGNUP_USER:
-        
-
 
     default:
       return state;
