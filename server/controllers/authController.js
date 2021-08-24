@@ -15,4 +15,32 @@ authController.checkCookie = (req, res, next) => {
   return next();
 };
 
+// template for logging in
+authController.loginUser = (req, res, next) => {
+  const { user_name, email, password } = req.body;
+  const authObj = {};
+  const authQuery = {
+    text: `SELECT * FROM users WHERE email = $1`,
+  };
+  const value = [email];
+  db.query(authQuery, value, (err, qres) => {
+    if (err) {
+      console.log(err);
+    }
+    authObj = qres;
+
+    if (
+      authObj.user_name === user_name &&
+      authObj.password === password &&
+      authObj.email === email
+    ) {
+      res.locals.auth = true;
+      return next();
+    } else {
+      res.locals.auth = false;
+      return next();
+    }
+  });
+};
+
 module.exports = authController;
