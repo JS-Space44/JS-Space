@@ -1,34 +1,46 @@
 /** @format */
 
 const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   mode: process.env.NODE_ENV,
-  entry: path.resolve(__dirname, "./client/index.js"),
-
+  entry: "./client/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
     publicPath: "/",
   },
-
-  devtool: "eval-source-map",
-
+  //makes debuggin easier and faster
+  devtool: "eval-cheap-source-map",
   devServer: {
-    host: "localhost",
-    port: 8080,
-    //contentBase: path.resolve(__dirname, "dist"),
-    hot: true,
     //publicPath: "/dist",
     proxy: {
-      "/api**": "http://localhost:3000",
+      "/api/****": {
+        target: "http://localhost:3000",
+        secure: false,
+      },
+      "/images": {
+        target: "http://localhost:3000",
+        secure: false,
+      },
+      "/picture": {
+        target: "http://localhost:3000",
+        secure: false,
+      },
+      "/upload": {
+        target: "http://localhost:3000",
+        secure: false,
+      },
+      "/vote": {
+        target: "http://localhost:3000",
+        secure: false,
+      },
     },
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.jsx?/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
@@ -38,19 +50,17 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/,
+        test: /\.scss$/,
         exclude: /node_modules/,
+        use: ["style-loader", "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.css$/,
         use: ["style-loader", "css-loader"],
       },
     ],
   },
-
   resolve: {
-    extensions: ["*", ".js", ".jsx", ".json", ".css"],
+    extensions: [".js", ".jsx"],
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "index.html"),
-    }),
-  ],
 };
