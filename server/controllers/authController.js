@@ -30,11 +30,12 @@ authController.loginUser = (req, res, next) => {
       return next(err);
     }
     authObj = qres.rows[0];
-    console.log(authObj);
+    console.log('authObj.password', authObj.password);
 
     if (
       // authObj.user_name === user_name &&
-      authObj.password === password &&
+      //authObj.password === password &&
+      Bcrypt.compareSync(password, authObj.password) &&
       authObj.email === email
     ) {
       res.locals.auth = true;
@@ -74,6 +75,7 @@ authController.createUser = (req, res, next) => {
 authController.bCrypt = async function (req, res, next) {
   try {
     req.body.password = Bcrypt.hashSync(req.body.password, 10);
+    console.log('req.body.password', req.body.password);
     return next();
   } catch (err) {
     return next(err);

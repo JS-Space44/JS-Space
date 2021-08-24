@@ -23,8 +23,13 @@ router.post(
   }
 );
 
-router.post('/login', authController.loginUser, (req, res) => {
-  return res.status(200).json(res.locals);
-});
+router.post(
+  '/login',
+
+  authController.loginUser,
+  (req, res) => {
+    return res.status(200).json(res.locals);
+  }
+);
 
 module.exports = router;
