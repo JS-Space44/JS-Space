@@ -16,6 +16,18 @@ authController.checkCookie = (req, res, next) => {
   return next();
 };
 
+//might have to have a sessions id in database, not sure though?
+authController.startSession = (req, res, next) => {
+  if (res.locals.auth === true) {
+    res.cookie('Session', 'logged in as user', {
+      httpOnly: true,
+      //secure: true,
+    });
+    console.log('set the cookie');
+  }
+  return next();
+};
+
 // template for logging in
 authController.loginUser = (req, res, next) => {
   const { user_name, email, password } = req.body;

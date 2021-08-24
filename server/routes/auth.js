@@ -25,8 +25,8 @@ router.post(
 
 router.post(
   '/login',
-
   authController.loginUser,
+  authController.startSession,
   (req, res) => {
     return res.status(200).json(res.locals);
   }
