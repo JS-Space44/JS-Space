@@ -1,16 +1,26 @@
-import { Box } from '@chakra-ui/react';
+import { Box, Text, Flex } from '@chakra-ui/react';
 import React from 'react';
 
-export default function WorkspaceModuleWrapper({ children }) {
+export default function WorkspaceModuleWrapper({
+  children,
+  moduleName,
+  problemName,
+}) {
   return (
     <Box
       h="100%"
-      p={4}
+      pt={0}
       m={0}
       border="1px"
       borderRadius="md"
       borderColor="gray.200"
+      backgroundColor="white"
     >
+      <Flex justifyContent="center" backgroundColor="gray.50">
+        <Text>{moduleName}</Text>
+        <Text> - </Text>
+        <Text>{problemName}</Text>
+      </Flex>
       {children}
     </Box>
   );

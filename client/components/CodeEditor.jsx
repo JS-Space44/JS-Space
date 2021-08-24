@@ -1,24 +1,14 @@
 import React from 'react';
 
-import { Rnd } from 'react-rnd';
 import WorkspaceModuleWrapper from './WorkspaceModuleWrapper';
 
-export default function CodeEditor() {
+export default function CodeEditor({ currentProblem }) {
   return (
-    <Rnd
-      default={{
-        x: 900,
-        y: 20,
-        width: '40vw',
-        height: '65vh',
-      }}
-      minWidth={500}
-      minHeight={190}
-      bounds="window"
+    <WorkspaceModuleWrapper
+      moduleName="code editor"
+      problemName={currentProblem.name}
     >
-      <WorkspaceModuleWrapper>
-        <h1> CodeEditor</h1>
-      </WorkspaceModuleWrapper>
-    </Rnd>
+      <h1> CodeEditor</h1>
+    </WorkspaceModuleWrapper>
   );
 }

@@ -19,7 +19,7 @@ app.use(express.static(path.resolve(__dirname, '../build')));
 app.use(express.static(path.resolve(__dirname, '../index.html')));
 app.use(express.static(path.resolve(__dirname, '../client/styles.css')));
 
-//routes
+// routes
 app.use('/api', apiRouter);
 // app.use('/#/auth', authRouter);
 app.use('/auth', authRouter);
@@ -30,7 +30,7 @@ app.use((req, res) => res.status(404).send('page is not found'));
 // global error handler
 app.use((err, req, res, next) => {
   const defaultError = {
-    log: 'express error cought unknown middleware error',
+    log: 'express error caught unknown middleware error',
     status: 500,
     message: { err: `error in middleware ${err}` },
   };

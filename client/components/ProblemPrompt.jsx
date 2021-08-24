@@ -1,23 +1,18 @@
+import { Heading, Text, Flex } from '@chakra-ui/react';
 import React from 'react';
-import { Rnd } from 'react-rnd';
+
 import WorkspaceModuleWrapper from './WorkspaceModuleWrapper';
 
-export default function ProblemPrompt() {
+export default function ProblemPrompt({ currentProblem }) {
   return (
-    <Rnd
-      default={{
-        x: 20,
-        y: 20,
-        width: '40vw',
-        height: '40vh',
-      }}
-      minWidth={200}
-      minHeight={190}
-      bounds="window"
+    <WorkspaceModuleWrapper
+      moduleName="problem prompt"
+      problemName={currentProblem.name}
     >
-      <WorkspaceModuleWrapper>
-        <h1>problem prompt</h1>
-      </WorkspaceModuleWrapper>
-    </Rnd>
+      <Flex direction="column" p={4}>
+        <Heading>{currentProblem.name}</Heading>
+        <Text>{currentProblem.description}</Text>
+      </Flex>
+    </WorkspaceModuleWrapper>
   );
 }
