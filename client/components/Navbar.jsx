@@ -10,7 +10,6 @@ function NavBar() {
       align="center"
       justify="space-between"
       p={6}
-      mb={10}
       shadow="sm"
       borderBottom="1px solid #C8C8C8"
     >

@@ -4,11 +4,10 @@ import NavBar from './Navbar';
 
 export default function Layout({ children }) {
   return (
-    <Flex direction="column" minHeight="100vh" mx="auto" my={0}>
+    <Flex direction="column" margin="0" height="100%">
       <NavBar />
-      <Center width="100%" px={32}>
-        {children}
-      </Center>
+
+      {children}
     </Flex>
   );
 }
