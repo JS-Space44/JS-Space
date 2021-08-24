@@ -15,4 +15,55 @@ authController.checkCookie = (req, res, next) => {
   return next();
 };
 
+// template for logging in
+authController.loginUser = (req, res, next) => {
+  const { user_name, email, password } = req.body;
+  const authObj = {};
+  const authQuery = {
+    text: `SELECT * FROM users WHERE email = $1`,
+  };
+  const value = [email];
+  db.query(authQuery, value, (err, qres) => {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+    authObj = qres;
+
+    if (
+      authObj.user_name === user_name &&
+      authObj.password === password &&
+      authObj.email === email
+    ) {
+      res.locals.auth = true;
+      return next();
+    } else {
+      res.locals.auth = false;
+      return next();
+    }
+  });
+};
+
+authController.createUser = (req, res, next) => {
+  const { user_name, email, password, user_id } = req.body;
+  res.locals.user_name = user_name;
+  res.locals.email = email;
+  res.locals.password = password;
+  res.locals.user_id = user_id;
+  const signUpQuery = {
+    text: `INSERT INTO users (user_name, email, password)`,
+  };
+  const value = [user_name, email, password];
+  console.log('value', value);
+
+  db.query(signUpQuery, value, (err, qres) => {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+    res.locals = qres;
+    return next();
+  });
+};
+
 module.exports = authController;
