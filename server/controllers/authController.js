@@ -26,6 +26,7 @@ authController.loginUser = (req, res, next) => {
   db.query(authQuery, value, (err, qres) => {
     if (err) {
       console.log(err);
+      return next(err);
     }
     authObj = qres;
 
@@ -44,10 +45,11 @@ authController.loginUser = (req, res, next) => {
 };
 
 authController.createUser = (req, res, next) => {
-  const { user_name, email, password } = req.body;
+  const { user_name, email, password, user_id } = req.body;
   res.locals.user_name = user_name;
   res.locals.email = email;
   res.locals.password = password;
+  res.locals.user_id = user_id;
   const signUpQuery = {
     text: `INSERT INTO users (user_name, email, password)`,
   };
@@ -57,6 +59,7 @@ authController.createUser = (req, res, next) => {
   db.query(signUpQuery, value, (err, qres) => {
     if (err) {
       console.log(err);
+      return next(err);
     }
     res.locals = qres;
     return next();
