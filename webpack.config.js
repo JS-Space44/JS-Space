@@ -5,11 +5,12 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   mode: process.env.NODE_ENV,
-  entry: path.resolve(__dirname, "client/index.js"),
+  entry: path.resolve(__dirname, "./client/index.js"),
 
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
+    publicPath: "/",
   },
 
   devtool: "eval-source-map",
@@ -17,9 +18,9 @@ module.exports = {
   devServer: {
     host: "localhost",
     port: 8080,
-    contentBase: path.resolve(__dirname, "dist"),
+    //contentBase: path.resolve(__dirname, "dist"),
     hot: true,
-    publicPath: "/",
+    //publicPath: "/dist",
     proxy: {
       "/api**": "http://localhost:3000",
     },
