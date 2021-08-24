@@ -1,14 +1,14 @@
-import React, {Component} from "react"
-import { render } from "react-dom"
+import React from 'react';
+import { ChakraProvider } from '@chakra-ui/react';
+import theme from './theme';
+import Layout from './components/Layout';
 
-const App = () =>  {
-     render(
-            <div>
-              <h1>  Words</h1>
-                {/* <import something here> */}
-            </div>
-     )
-    };
-
-
-export default App
+export default function App() {
+  return (
+    <ChakraProvider theme={theme}>
+      <Layout>
+        <h1>app goes here</h1>
+      </Layout>
+    </ChakraProvider>
+  );
+}

@@ -1,66 +1,61 @@
-/** @format */
-
-const path = require("path");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: process.env.NODE_ENV,
-  entry: "./client/index.js",
+  // entry
+  entry: ['./client/index.js'],
+  // output
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js",
-    publicPath: "/",
+    path: path.resolve(__dirname, 'build'),
+    filename: 'bundle.js',
   },
-  //makes debuggin easier and faster
-  devtool: "eval-cheap-source-map",
+  devtool: 'eval-source-map',
+  // dev server
+  mode: process.env.NODE_ENV,
   devServer: {
-    //publicPath: "/dist",
+    host: 'localhost',
+    port: 8080,
+    contentBase: path.resolve(__dirname, 'build'),
+    hot: true,
+    publicPath: '/',
+    historyApiFallback: true,
+    inline: true,
+    headers: { 'Access-Control-Allow-Origin': '*' },
     proxy: {
-      "/api/****": {
-        target: "http://localhost:3000",
-        secure: false,
-      },
-      "/images": {
-        target: "http://localhost:3000",
-        secure: false,
-      },
-      "/picture": {
-        target: "http://localhost:3000",
-        secure: false,
-      },
-      "/upload": {
-        target: "http://localhost:3000",
-        secure: false,
-      },
-      "/vote": {
-        target: "http://localhost:3000",
+      '/api/**': {
+        target: 'http://localhost:3000/',
         secure: false,
       },
     },
   },
+  // modules
   module: {
     rules: [
       {
-        test: /\.jsx?/,
+        test: /.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
-            presets: ["@babel/preset-env", "@babel/preset-react"],
+            presets: ['@babel/preset-env', '@babel/preset-react'],
           },
         },
       },
       {
-        test: /\.scss$/,
+        test: /.(css|scss)$/,
         exclude: /node_modules/,
-        use: ["style-loader", "css-loader", "sass-loader"],
-      },
-      {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },
+  // plugins
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './client/index.html',
+    }),
+  ],
+  // file import rules
   resolve: {
-    extensions: [".js", ".jsx"],
+    extensions: ['.js', '.jsx'],
   },
 };
