@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-import { Rnd } from 'react-rnd';
 import Excalidraw from '@excalidraw/excalidraw';
 import WorkspaceModuleWrapper from './WorkspaceModuleWrapper';
 import InitialData from '../initialData';

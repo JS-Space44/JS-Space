@@ -43,7 +43,7 @@ export default {
       isDeleted: false,
     },
   ],
-  appState: { viewBackgroundColor: '#AFEEEE', currentItemFontFamily: 1 },
+  appState: { viewBackgroundColor: 'white', currentItemFontFamily: 1 },
   scrollToContent: true,
   libraryItems: [
     [
