@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/JS-Space44/JS-Space#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
     "pg": "^8.7.1",
     "react": "^17.0.2",
@@ -38,6 +39,7 @@
     "concurrently": "^6.2.1",
     "cross-env": "^7.0.3",
     "css-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.3.2",
     "nodemon": "^2.0.12",
     "redux-devtools-extension": "^2.13.9",
     "style-loader": "^3.2.1",
