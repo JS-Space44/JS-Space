@@ -43,4 +43,24 @@ authController.loginUser = (req, res, next) => {
   });
 };
 
+authController.createUser = (req, res, next) => {
+  const { user_name, email, password } = req.body;
+  res.locals.user_name = user_name;
+  res.locals.email = email;
+  res.locals.password = password;
+  const signUpQuery = {
+    text: `INSERT INTO users (user_name, email, password)`,
+  };
+  const value = [user_name, email, password];
+  console.log('value', value);
+
+  db.query(signUpQuery, value, (err, qres) => {
+    if (err) {
+      console.log(err);
+    }
+    res.locals = qres;
+    return next();
+  });
+};
+
 module.exports = authController;
