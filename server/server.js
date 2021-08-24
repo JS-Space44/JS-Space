@@ -5,6 +5,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 
 const app = express();
+const apiRouter = require('./routes/api');
+const authRouter = require('./routes/auth');
 
 const PORT = process.env.PORT || '3000';
 
@@ -16,6 +18,11 @@ app.use('/build/bundle', express.static(path.resolve(__dirname, '../build')));
 app.use(express.static(path.resolve(__dirname, '../build')));
 app.use(express.static(path.resolve(__dirname, '../index.html')));
 app.use(express.static(path.resolve(__dirname, '../client/styles.css')));
+
+//routes
+app.use('/api', apiRouter);
+// app.use('/#/auth', authRouter);
+app.use('/auth', authRouter);
 
 // express error handler
 app.use((req, res) => res.status(404).send('page is not found'));
