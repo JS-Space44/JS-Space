@@ -36,7 +36,7 @@ actions.deleteProblem = (problem_id, user_id) => (dispatch) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      diespatch({
+      dispatch({
         type: types.DELETE_PROBLEM,
         payload: { problem_id, user_id },
       });
@@ -48,14 +48,24 @@ actions.deleteProblem = (problem_id, user_id) => (dispatch) => {
 // type: types.DELETE_PROBLEM,
 // payload: '',
 
-actions.getProblems = () => ({
-  type: types.GET_PROBLEMS,
-  payload: '',
-
-  // get problem based on user_name or user_id
-  // gets called on login - state holding array of problems
-  // need get problems sql call
-});
+actions.getProblems = (user_id) => (dispatch) => {
+  fetch('/api/getProblems', {
+    method: 'POST',
+    headers: { 'Content-Type': 'Application/JSON' },
+    body: JSON.stringify({ user_id }),
+  })
+    .then((res) => res.json())
+    .then((problems) => {
+      console.log('problems data', data);
+      dispatch({
+        type: types.GET_PROBLEMS,
+        payload: { problems },
+      });
+    });
+};
+// get problem based on user_name or user_id
+// gets called on login - state holding array of problems
+// need get problems sql call
 
 actions.updateProblems = () => ({
   type: types.UPDATE_PROBLEM,
