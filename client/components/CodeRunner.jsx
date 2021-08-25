@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import React, { useEffect, useRef } from 'react';
 
 /**
@@ -74,7 +75,7 @@ export default function CodeRunner({ sandboxId, js, addHistory }) {
     window.addEventListener('message', (e) => {
       if (!e.data) return false; // only handle if theres data
       if (typeof e.data !== 'string') return false; // data must be a string
-      if (e.data.includes('_')) return false; // dont watch for events emitted by the react library
+      if (e.data.includes('_')) return false; // don't watch for events emitted by the react library
       addHistory(e.data);
     });
   }, []);

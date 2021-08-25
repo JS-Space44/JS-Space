@@ -10,10 +10,6 @@ export default function ExcalidrawJS() {
       <Excalidraw
         ref={excalidrawRef}
         initialData={InitialData}
-        // onChange={(elements, state) =>
-        //   console.log('Elements :', elements, 'State : ', state)
-        // }
-        // onPointerUpdate={(payload) => console.log(payload)}
         name="Custom name of drawing"
         UIOptions={{ canvasActions: { loadScene: false } }}
       />

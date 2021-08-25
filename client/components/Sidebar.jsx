@@ -22,10 +22,6 @@ const mapStateToProps = ({ business }) => ({
   currentProblem: business.current,
 });
 
-// const mapDispatchToProps = (dispatch) => ({
-//   setCurrentProblem: (id) => dispatch(actions.setCurrentProblem(id)),
-// });
-
 function Sidebar({
   isOpen,
   onClose,
@@ -36,10 +32,9 @@ function Sidebar({
 }) {
   const dispatch = useDispatch();
   const handleClick = (id) => {
-    console.log("console.log", id);
+    console.log('console.log', id);
     return dispatch(actions.setCurrentProblem(id));
-    // setCurrentProblem(id);
-    onClose();
+    // onClose();
   };
 
   return (
@@ -64,7 +59,6 @@ function Sidebar({
               <Button
                 display="inline-block"
                 key={problem.id}
-                // onClick={() => setCurrentProblem(problem.id)}
                 onClick={() => handleClick(problem.id)}
                 variant="ghost"
               >

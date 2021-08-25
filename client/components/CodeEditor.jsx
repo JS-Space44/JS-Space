@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Controlled as CodeMirror } from 'react-codemirror2';
@@ -43,19 +44,20 @@ export default function CodeEditor({
 
   // const setCode = (code) => dispatch(actions.loadCode(code));
 
+  //   <span>
+  //   <button
+  //     onClick={() => {
+  //       console.log('CLEAR CODE');
+  //       dispatch(actions.clearCode());
+  //     }}
+  //   >
+  //     clear
+  //   </button>
+  //   <button>run</button>
+  // </span>
+
   return (
     <WorkspaceModuleWrapper moduleName="code editor" problemName={name}>
-      <span>
-        <button
-          onClick={() => {
-            console.log('CLEAR CODE');
-            dispatch(actions.clearCode());
-          }}
-        >
-          clear
-        </button>
-        <button>run</button>
-      </span>
       <CodeMirror
         value={value}
         options={{
@@ -70,23 +72,7 @@ export default function CodeEditor({
           indentUnit: 2,
           tabSize: 2,
         }}
-        D
         onBeforeChange={handleChange}
-        // editorDidMount={(editor) => {
-        //   editor.setSize('100%');
-        // }}
-        // onBeforeChange={(editor, data, value) => {
-        //   const optionObj = {
-        //     completeSingle: false,
-        //   };
-        //   setCode(value);
-        //   editor.setOption('lint', optionObj);
-        //   editor.setOption('hintOptions', optionObj);
-        // }}
-        // onChange={(editor, data, value) => {
-        //   editor.showHint();
-        //   setCode(value);
-        // }}
       />
       <Button onClick={runCode}>Run</Button>
     </WorkspaceModuleWrapper>
