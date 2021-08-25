@@ -17,9 +17,10 @@ import {
 import CreateNewProblem from './CreateNewProblem';
 import actions from '../actions/actions';
 
-const mapStateToProps = ({ business }) => ({
+const mapStateToProps = ({ business, auth }) => ({
   problems: business.problems,
   currentProblem: business.current,
+  isLoggedIn: auth.isLoggedIn,
 });
 
 function Sidebar({
@@ -27,6 +28,7 @@ function Sidebar({
   onClose,
   btnRef,
   problems,
+  isLoggedIn,
   currentProblem,
   setCurrentProblem,
 }) {
@@ -49,7 +51,7 @@ function Sidebar({
         <DrawerCloseButton />
         <DrawerHeader>Problems</DrawerHeader>
         <DrawerBody>
-          <CreateNewProblem />
+          {isLoggedIn ? <CreateNewProblem /> : 'login'}
           <VStack
             divider={<StackDivider borderColor="gray.200" />}
             spacing={4}
