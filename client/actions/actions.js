@@ -1,7 +1,5 @@
-/** @format */
-
-// where the actions actually are decalared
 import * as types from '../constants/actionTypes';
+
 const actions = {};
 
 actions.createProblem = (user_id, name, description, tests) => (dispatch) => {
@@ -9,7 +7,7 @@ actions.createProblem = (user_id, name, description, tests) => (dispatch) => {
     user_id,
     name,
     description,
-    tests, //might not need this one
+    tests, // might not need this one
   };
   fetch('/api/createProblem', {
     method: 'POST',
@@ -41,7 +39,7 @@ actions.getProblems = () => ({
 
   // get problem based on user_name or user_id
   // gets called on login - state holding array of problems
-  //need get problems sql call
+  // need get problems sql call
 });
 
 actions.updateProblems = () => ({
@@ -50,7 +48,7 @@ actions.updateProblems = () => ({
 });
 
 actions.signUpUser = (user_name, password, email) => (dispatch) => {
-  //const { email, user_name, password } = valuesObject;
+  // const { email, user_name, password } = valuesObject;
   console.log('valuesObject from signUp', user_name, password, email);
   const payloadObj = {
     user_name,
@@ -101,18 +99,25 @@ actions.LogoutUser = () => ({
   type: types.LOGOUT_USER,
 });
 
+actions.setCurrentProblem = (id) => (dispatch) => {
+  dispatch({
+    type: types.SET_CURRENT_PROBLEM,
+    payload: id,
+  });
+};
+
 actions.clearCode = () => ({
   type: types.CLEAR_CODE,
-  payload: ''
+  payload: '',
 });
 
 actions.loadCode = (code) => ({
   type: types.LOAD_CODE,
-  payload: code
+  payload: code,
 });
 
 actions.runCode = () => ({
-  type: types.RUN_CODE  
+  type: types.RUN_CODE,
 });
 
 export default actions;
