@@ -13,8 +13,8 @@ function Workspace({ currentProblem }) {
       {/* problem prompt */}
       <Rnd
         default={{
-          x: 40,
-          y: 40,
+          x: 28,
+          y: 110,
           width: '55vw',
         }}
         minWidth={200}
@@ -29,9 +29,9 @@ function Workspace({ currentProblem }) {
       {/* excalidraw */}
       <Rnd
         default={{
-          x: 40,
-          y: 650,
-          width: '40vw',
+          x: 28,
+          y: 775,
+          width: '55vw',
           height: '40vh',
         }}
         minWidth={200}
@@ -45,9 +45,9 @@ function Workspace({ currentProblem }) {
       {/* code editor */}
       <Rnd
         default={{
-          x: 900,
-          y: 20,
-          width: '40vw',
+          x: 765,
+          y: 110,
+          width: '30vw',
           height: '65vh',
         }}
         minWidth={500}
@@ -61,9 +61,9 @@ function Workspace({ currentProblem }) {
       {/* terminal */}
       <Rnd
         default={{
-          x: 900,
-          y: 900,
-          width: '40vw',
+          x: 765,
+          y: 1000,
+          width: '30vw',
           height: '20vh',
         }}
         minWidth={500}

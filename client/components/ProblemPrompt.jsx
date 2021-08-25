@@ -4,6 +4,7 @@ import WorkspaceModuleWrapper from './WorkspaceModuleWrapper';
 import Tests from './Tests';
 
 export default function ProblemPrompt({ currentProblem }) {
+  console.log(currentProblem);
   const { id, name, description, tests } = currentProblem;
   return (
     <WorkspaceModuleWrapper moduleName="problem prompt" problemName={name}>
