@@ -38,6 +38,10 @@ actions.deleteProblem = () => ({
 actions.getProblems = () => ({
   type: types.GET_PROBLEMS,
   payload: '',
+
+  // get problem based on user_name or user_id
+  // gets called on login - state holding array of problems
+  //need get problems sql call
 });
 
 actions.updateProblems = () => ({
@@ -48,6 +52,11 @@ actions.updateProblems = () => ({
 actions.signUpUser = (user_name, password, email) => (dispatch) => {
   //const { email, user_name, password } = valuesObject;
   console.log('valuesObject from signUp', user_name, password, email);
+  const payloadObj = {
+    user_name,
+    password,
+    email,
+  };
   fetch('/auth/signup', {
     method: 'POST',
     headers: {
@@ -56,12 +65,13 @@ actions.signUpUser = (user_name, password, email) => (dispatch) => {
     body: JSON.stringify({ user_name, password, email }),
   })
     .then((res) => res.json())
-    .then((data) => {
+    .then((res) => {
+      console.log('right before dispatch');
+      console.log('from res', res);
+
       dispatch({
         type: types.SIGNUP_USER,
-        payload: user_name,
-        password,
-        email,
+        payload: { user_name, password, email },
       });
     })
     .catch((err) => {
@@ -71,17 +81,18 @@ actions.signUpUser = (user_name, password, email) => (dispatch) => {
 
 actions.LoginUser = (email, password) => (dispatch) => {
   console.log('console from login', email, password);
-  fetch('/auth/login', {
+  return fetch('/auth/login', {
     method: 'POST',
     headers: { 'Content-Type': 'Application/JSON' },
     body: JSON.stringify({ email, password }),
   })
     .then((res) => res.json())
-    .then((data) => {
+    .then((res) => {
+      const { user_name, user_id, auth } = res;
+      console.log('from response data', user_name, user_id, auth);
       dispatch({
         type: types.LOGIN_USER,
-        payload: email,
-        password,
+        payload: { email, password, user_name, user_id, auth },
       });
     });
 };

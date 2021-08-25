@@ -18,6 +18,7 @@ router.post(
   '/signup',
   authController.bCrypt,
   authController.createUser,
+  authController.loginUser,
   (req, res) => {
     return res.status(200).json(res.locals);
   }
