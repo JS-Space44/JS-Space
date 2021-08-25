@@ -24,7 +24,7 @@ const initialState = {
     },
   ],
   current: {
-    number: 0,
+    id: 0,
     name: 'playground',
     description:
       'This is the default view.  You can use this to play around with code.  If you want to create a problem to save and practice later head to the problems menu above. Taiyaki etsy poutine heirloom small batch drinking vinegar typewriter, four loko chartreuse thundercats. Flannel salvia actually, sriracha gluten-free cloud bread chambray +1. Brunch salvia taxidermy, synth stumptown palo santo four dollar toast cronut cold-pressed truffaut. Gluten-free pickled leggings umami artisan cray. Copper mug ennui pork belly bushwick. Fashion axe intelligentsia vice photo booth la croix edison bulb enamel pin ennui marfa neutra cliche. Blog next level hella, quinoa mixtape XOXO prism activated charcoal occupy cloud bread readymade post-ironic schlitz tumeric.',
