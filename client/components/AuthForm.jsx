@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import actions from '../actions/actions'
+
 
 import {
   Flex,
@@ -24,6 +27,8 @@ const AuthForm = () => {
   const [login, setLogin] = useState(true);
   const [values, setValues] = useState(INITIAL_STATE);
 
+  const dispatch = useDispatch()
+
   function handleChange(event) {
     event.persist();
     setValues((previousValues) => ({
@@ -32,9 +37,27 @@ const AuthForm = () => {
     }));
   }
 
+
   function handleSubmit(event) {
+    event.preventDefault();
+    const { username, password, email } = values; 
     // submit
-  }
+    if (login === true) {
+      console.log('login == true')
+      //call action for login
+     
+        dispatch(actions.LoginUser(email, password))
+     
+      }
+      if (login === false) {
+        console.log('login == false')
+        
+          dispatch(actions.signUpUser(username, password, email))
+       
+        //call action for signup
+      }
+    }
+  
 
   return (
     <Flex align="center" justify="center" height="auto" mx={0}>
