@@ -7,7 +7,10 @@ yarn-error.log*
 lerna-debug.log*
 
 config/
+build
 
+#postgres URL
+postgres
 
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
@@ -40,6 +43,7 @@ bower_components
 
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
+build
 
 # Dependency directories
 node_modules/
