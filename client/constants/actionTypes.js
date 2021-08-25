@@ -12,3 +12,8 @@ export const EXECUTE_CODE = "EXECUTE_CODE";
 export const LOGIN_USER = "LOGIN_USER";
 export const LOGOUT_USER = "LOGOUT_USER";
 export const SIGNUP_USER = "SIGNUP_USER";
+
+//Code Editor
+export const CLEAR_CODE = "CLEAR_CODE";
+export const LOAD_CODE = "LOAD_CODE";
+export const RUN_CODE = "RUN_CODE";
