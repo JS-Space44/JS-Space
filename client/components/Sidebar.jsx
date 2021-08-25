@@ -14,6 +14,7 @@ import {
   Flex,
   Text,
 } from '@chakra-ui/react';
+import CreateNewProblem from './CreateNewProblem';
 
 const mapStateToProps = ({ business }) => ({
   problems: business.problems,
@@ -33,14 +34,15 @@ function Sidebar({ isOpen, onClose, btnRef, problems, currentProblem }) {
         <DrawerCloseButton />
         <DrawerHeader>Problems</DrawerHeader>
         <DrawerBody>
+          <CreateNewProblem />
           <VStack
             divider={<StackDivider borderColor="gray.200" />}
             spacing={4}
             align="stretch"
           >
-            {problems.map((problem, index) => (
-              <Button key={problem.id} variant="link">
-                <Flex justifyContent="flex-start">
+            {problems.map((problem, _) => (
+              <Button display="inline-block" key={problem.id} variant="ghost">
+                <Flex justifyContent="space-between">
                   <Text>{problem.id}</Text>
                   <Text>{problem.name}</Text>
                 </Flex>
