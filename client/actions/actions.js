@@ -101,4 +101,18 @@ actions.LogoutUser = () => ({
   type: types.LOGOUT_USER,
 });
 
+actions.clearCode = () => ({
+  type: types.CLEAR_CODE,
+  payload: ''
+});
+
+actions.loadCode = (code) => ({
+  type: types.LOAD_CODE,
+  payload: code
+});
+
+actions.runCode = () => ({
+  type: types.RUN_CODE  
+});
+
 export default actions;
