@@ -22,7 +22,6 @@ const authReducer = (state = initalState, action) => {
         user_name: action.payload.user_name,
         email: action.payload.email,
         user_id: action.payload.user_id,
-        isLoggedIn: action.payload.auth,
       };
 
     case types.LOGIN_USER:
