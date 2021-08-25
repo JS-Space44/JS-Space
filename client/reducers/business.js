@@ -67,10 +67,20 @@ const initialState = {
 };
 
 const businessReducer = (state = initialState, action) => {
-  // declare variables up here
   switch (action.type) {
-    default:
+    case types.SET_CURRENT_PROBLEM: {
+      const newCurrentProblem = state.problems.find(
+        (problem) => problem.id === action.payload
+      );
+
+      return {
+        ...state,
+        current: newCurrentProblem,
+      };
+    }
+    default: {
       return state;
+    }
   }
 };
 
