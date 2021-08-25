@@ -30,10 +30,25 @@ actions.createProblem = (user_id, name, description, tests) => (dispatch) => {
     });
 };
 
-actions.deleteProblem = () => ({
-  type: types.DELETE_PROBLEM,
-  payload: '',
-});
+actions.deleteProblem = (problem_id, user_id) => (dispatch) => {
+  fetch('/api/deleteProblem', {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'Application/JSON' },
+    body: JSON.stringify({ problem_id, user_id }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      diespatch({
+        type: types.DELETE_PROBLEM,
+        payload: { problem_id, user_id },
+      });
+    })
+    .catch((err) => {
+      console.log('err in delete problem', err);
+    });
+};
+// type: types.DELETE_PROBLEM,
+// payload: '',
 
 actions.getProblems = () => ({
   type: types.GET_PROBLEMS,
