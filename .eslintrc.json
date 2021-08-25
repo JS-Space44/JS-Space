@@ -24,9 +24,10 @@
   "rules": {
     "react/destructuring-assignment": "off",
     "no-console": "off",
+    "camelcase": "off",
     "react/prop-types": "off",
     "prettier/prettier": "error",
-    "indent": ["warn", 2],
+    // "indent": ["warn", 2],
     "no-unused-vars": ["off", { "vars": "local" }],
     "prefer-const": "warn",
     "quotes": ["warn", "single"],
