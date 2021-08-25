@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import { Rnd } from 'react-rnd';
 import ProblemPrompt from './ProblemPrompt';
 import ExcalidrawJS from './ExcalidrawJS';
@@ -9,8 +9,7 @@ import bg from '../assets/bg.png';
 
 function Workspace({ currentProblem }) {
   return (
-    <Box height="100vh" margin="0px" backgroundImage={bg} position="absolute">
-      {/* problem prompt */}
+    <Flex minHeight="100vh" margin="0px" backgroundImage={bg}>
       <Rnd
         default={{
           x: 40,
@@ -26,12 +25,11 @@ function Workspace({ currentProblem }) {
       >
         <ProblemPrompt currentProblem={currentProblem} />
       </Rnd>
-      {/* excalidraw */}
       <Rnd
         default={{
           x: 40,
-          y: 650,
-          width: '40vw',
+          y: 700,
+          width: '55vw',
           height: '40vh',
         }}
         minWidth={200}
@@ -45,13 +43,13 @@ function Workspace({ currentProblem }) {
       {/* code editor */}
       <Rnd
         default={{
-          x: 900,
-          y: 20,
-          width: '40vw',
-          height: '65vh',
+          x: 950,
+          y: 40,
+          height: '40vh',
         }}
         minWidth={500}
-        minHeight={190}
+        minHeight={300}
+        maxHeight="100%"
         bounds="window"
         resizeGrid={[10, 10]}
         dragGrid={[10, 10]}
@@ -61,9 +59,9 @@ function Workspace({ currentProblem }) {
       {/* terminal */}
       <Rnd
         default={{
-          x: 900,
+          x: 950,
           y: 900,
-          width: '40vw',
+          width: '30vw',
           height: '20vh',
         }}
         minWidth={500}
@@ -74,7 +72,7 @@ function Workspace({ currentProblem }) {
       >
         <Terminal currentProblem={currentProblem} />
       </Rnd>
-    </Box>
+    </Flex>
   );
 }
 

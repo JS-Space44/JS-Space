@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { ChakraProvider } from '@chakra-ui/react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import theme from './theme';
 import Layout from './components/Layout';
 import Workspace from './components/Workspace';
