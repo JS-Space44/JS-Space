@@ -30,19 +30,24 @@ authController.startSession = (req, res, next) => {
 
 // template for logging in
 authController.loginUser = (req, res, next) => {
-  const { user_name, email, password } = req.body;
+  const { email, password } = req.body;
   let authObj = {};
   const authQuery = {
     text: `SELECT * FROM "User" WHERE Email=$1`,
   };
   const value = [email];
+  console.log(email);
   db.query(authQuery, value, (err, qres) => {
     if (err) {
       console.log(err);
       return next(err);
     }
+    console.log(qres);
     authObj = qres.rows[0];
-    console.log('authObj.password', authObj.password);
+    console.log('authObj.password', authObj);
+    if (!authObj) {
+      return next();
+    }
 
     if (
       // authObj.user_name === user_name &&
