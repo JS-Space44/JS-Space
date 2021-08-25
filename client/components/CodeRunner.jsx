@@ -1,5 +1,7 @@
 /* eslint-disable consistent-return */
 import React, { useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import actions from '../actions/actions';
 
 /**
  * Helper to build out the iframe's src
@@ -36,8 +38,15 @@ const buildIframeSrc = (js) => `
  * The browser component has a nested iframe
  * Every time the html, css, js props change, destroy the iframe and create a new iframe
  */
-export default function CodeRunner({ sandboxId, js, addHistory }) {
+export default function CodeRunner({ sandboxId, addHistory }) {
   const iframeContainer = useRef(null);
+  const js = useSelector((state) => state.editor.code);
+
+  const dispatch = useDispatch();
+
+  const runCode = useSelector((state) => state.editor.runCode);
+  const setRunCode = (execute) => dispatch(actions.runCode(execute));
+
 
   /**
    * Run all our code in the iframe
@@ -72,7 +81,7 @@ export default function CodeRunner({ sandboxId, js, addHistory }) {
    * Watch for postMessage coming from our iframe
    */
   useEffect(() => {
-    window.addEventListener('click', (e) => {
+    window.addEventListener('message', (e) => {
       if (!e.data) return false; // only handle if theres data
       if (typeof e.data !== 'string') return false; // data must be a string
       if (e.data.includes('_')) return false; // don't watch for events emitted by the react library
@@ -83,7 +92,12 @@ export default function CodeRunner({ sandboxId, js, addHistory }) {
   /**
    * Run the code
    */
-  useEffect(() => execute(), [js]);
+  useEffect(() => {
+    if (runCode === true) {
+      execute();
+      setRunCode(false);
+    }
+  }, [runCode]);
 
   return (
     <div

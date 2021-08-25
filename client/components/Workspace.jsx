@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Flex } from '@chakra-ui/react';
 import { Rnd } from 'react-rnd';
 import ProblemPrompt from './ProblemPrompt';
@@ -10,7 +11,9 @@ import bg from '../assets/bg.png';
 
 function Workspace({ currentProblem }) {
   const [history, setHistory] = React.useState([]);
-  const [js, setJs] = React.useState('');
+  // const [js, setJs] = React.useState('');
+  const js = useSelector((state) => state.editor.code);
+
   const [isRunning, setIsRunning] = React.useState(false);
 
   function addHistory(text) {
@@ -22,15 +25,15 @@ function Workspace({ currentProblem }) {
     setHistory([]);
   }
 
-  function runCode() {
-    if (isRunning) return false;
-    setIsRunning(true);
-    setJs('');
-    setTimeout(() => {
-      setJs(js);
-      setIsRunning(false);
-    }, 250);
-  }
+  // function runCode() {
+  //   if (isRunning) return false;
+  //   setIsRunning(true);
+  //   setJs('');
+  //   setTimeout(() => {
+  //     setJs(js);
+  //     setIsRunning(false);
+  //   }, 250);
+  // }
 
   return (
     <Flex minHeight="100vh" margin="0px" backgroundImage={bg}>
@@ -83,14 +86,14 @@ function Workspace({ currentProblem }) {
         <CodeEditor
           language="javascript"
           currentProblem={currentProblem}
-          code={js}
-          updateCode={setJs}
-          runCode={runCode}
+          // code={js}
+          // updateCode={setJs}
+          // runCode={runCode}
         />
       </Rnd>
 
       {/* iframe for running code in the background */}
-      <CodeRunner js={js} addHistory={addHistory} />
+      <CodeRunner addHistory={addHistory} />
 
       {/* terminal */}
       <Rnd

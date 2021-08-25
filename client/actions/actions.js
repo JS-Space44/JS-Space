@@ -116,8 +116,9 @@ actions.loadCode = (code) => ({
   payload: code,
 });
 
-actions.runCode = () => ({
+actions.runCode = (execute) => ({
   type: types.RUN_CODE,
+  payload: execute,
 });
 
 export default actions;
