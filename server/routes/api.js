@@ -7,6 +7,10 @@ router.get('/', (req, res) => {
   res.sendStatus(200);
 });
 
+router.post('/getProblems', apiController.getProblems, (req, res) => {
+  return res.status(200).json(res.locals.problems);
+});
+
 router.post('/', (req, res) => {});
 
 module.exports = router;
