@@ -46,7 +46,7 @@ const AuthForm = () => {
       console.log('login == true')
       //call action for login
      
-        dispatch(actions.LoginUser(username, password))
+        dispatch(actions.LoginUser(email, password))
      
       }
       if (login === false) {

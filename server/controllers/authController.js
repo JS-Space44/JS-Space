@@ -33,10 +33,10 @@ authController.loginUser = (req, res, next) => {
   const { email, password } = req.body;
   let authObj = {};
   const authQuery = {
-    text: `SELECT * FROM "User" WHERE Email=$1`,
+    text: `SELECT * FROM "User" WHERE email=$1`,
   };
   const value = [email];
-  console.log(email);
+  console.log('email', email);
   db.query(authQuery, value, (err, qres) => {
     if (err) {
       console.log(err);
