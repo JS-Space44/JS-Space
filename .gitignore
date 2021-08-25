@@ -7,7 +7,10 @@ yarn-error.log*
 lerna-debug.log*
 
 config/
+build
 
+#postgres URL
+postgres
 
 
 # Diagnostic reports (https://nodejs.org/api/report.html)

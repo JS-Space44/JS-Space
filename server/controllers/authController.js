@@ -1,4 +1,5 @@
 const db = require('../models/model');
+const Bcrypt = require('bcryptjs');
 
 const authController = {};
 
@@ -15,12 +16,24 @@ authController.checkCookie = (req, res, next) => {
   return next();
 };
 
+//might have to have a sessions id in database, not sure though?
+authController.startSession = (req, res, next) => {
+  if (res.locals.auth === true) {
+    res.cookie('Session', 'logged in as user', {
+      httpOnly: true,
+      //secure: true,
+    });
+    console.log('set the cookie');
+  }
+  return next();
+};
+
 // template for logging in
 authController.loginUser = (req, res, next) => {
   const { user_name, email, password } = req.body;
-  const authObj = {};
+  let authObj = {};
   const authQuery = {
-    text: `SELECT * FROM users WHERE email = $1`,
+    text: `SELECT * FROM "User" WHERE Email=$1`,
   };
   const value = [email];
   db.query(authQuery, value, (err, qres) => {
@@ -28,11 +41,13 @@ authController.loginUser = (req, res, next) => {
       console.log(err);
       return next(err);
     }
-    authObj = qres;
+    authObj = qres.rows[0];
+    console.log('authObj.password', authObj.password);
 
     if (
-      authObj.user_name === user_name &&
-      authObj.password === password &&
+      // authObj.user_name === user_name &&
+      //authObj.password === password &&
+      Bcrypt.compareSync(password, authObj.password) &&
       authObj.email === email
     ) {
       res.locals.auth = true;
@@ -44,14 +59,17 @@ authController.loginUser = (req, res, next) => {
   });
 };
 
+// takes a JSON object with email, password, user_name
 authController.createUser = (req, res, next) => {
-  const { user_name, email, password, user_id } = req.body;
+  const { user_name, email, password } = req.body;
+  console.log(req.body);
   res.locals.user_name = user_name;
   res.locals.email = email;
   res.locals.password = password;
-  res.locals.user_id = user_id;
+  //res.locals.user_id = user_id;
   const signUpQuery = {
-    text: `INSERT INTO users (user_name, email, password)`,
+    text: `INSERT INTO "User"(user_name, email, password) 
+    VALUES($1, $2, $3)`,
   };
   const value = [user_name, email, password];
   console.log('value', value);
@@ -64,6 +82,16 @@ authController.createUser = (req, res, next) => {
     res.locals = qres;
     return next();
   });
+};
+
+authController.bCrypt = async function (req, res, next) {
+  try {
+    req.body.password = Bcrypt.hashSync(req.body.password, 10);
+    console.log('req.body.password', req.body.password);
+    return next();
+  } catch (err) {
+    return next(err);
+  }
 };
 
 module.exports = authController;
