@@ -2,28 +2,7 @@ import * as types from '../constants/actionTypes';
 import defaultPlayground from '../initialData/playground';
 
 const initialState = {
-  problems: [
-    defaultPlayground,
-    {
-      id: 1,
-      name: 'twoSum',
-      description: 'This is the default view. ',
-      solutions: [
-        {
-          id: 0,
-          name: '',
-          description: '',
-          code: '',
-        },
-      ],
-      tests: [
-        {
-          id: 1,
-          funcWithArgs: 'maxValue([4, 7, 2, 8, 10, 9]); // -> 10',
-        },
-      ],
-    },
-  ],
+  problems: [defaultPlayground],
   current: defaultPlayground,
 };
 
