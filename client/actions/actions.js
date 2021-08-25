@@ -39,7 +39,7 @@ actions.getProblems = () => ({
 
   // get problem based on user_name or user_id
   // gets called on login - state holding array of problems
-  //need get problems sql call
+  // need get problems sql call
 });
 
 actions.updateProblems = () => ({
@@ -105,5 +105,19 @@ actions.setCurrentProblem = (id) => (dispatch) => {
     payload: id,
   });
 };
+
+actions.clearCode = () => ({
+  type: types.CLEAR_CODE,
+  payload: '',
+});
+
+actions.loadCode = (code) => ({
+  type: types.LOAD_CODE,
+  payload: code,
+});
+
+actions.runCode = () => ({
+  type: types.RUN_CODE,
+});
 
 export default actions;
