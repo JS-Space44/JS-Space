@@ -4,12 +4,12 @@ import WorkspaceModuleWrapper from './WorkspaceModuleWrapper';
 import Tests from './Tests';
 
 export default function ProblemPrompt({ currentProblem }) {
-  const { number, name, description, tests } = currentProblem;
+  const { id, name, description, tests } = currentProblem;
   return (
     <WorkspaceModuleWrapper moduleName="problem prompt" problemName={name}>
       <Flex direction="column" p={8}>
         <Heading mb={6}>
-          {number} - {name}
+          {id} - {name}
         </Heading>
         <Text mb={8}>{description}</Text>
         <Tests tests={tests} />
