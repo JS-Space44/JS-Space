@@ -1,4 +1,5 @@
-import { Box, Text, Flex } from '@chakra-ui/react';
+import { LockIcon } from '@chakra-ui/icons';
+import { Box, Text, Flex, IconButton } from '@chakra-ui/react';
 import React from 'react';
 
 export default function WorkspaceModuleWrapper({
@@ -7,7 +8,8 @@ export default function WorkspaceModuleWrapper({
   problemName,
 }) {
   return (
-    <Box
+    <Flex
+      direction="column"
       h="100%"
       minHeight="100%"
       pt={0}
@@ -18,12 +20,26 @@ export default function WorkspaceModuleWrapper({
       backgroundColor="white"
       overflow="scroll"
     >
-      <Flex justifyContent="center" backgroundColor="gray.200">
-        <Text>{moduleName}</Text>
-        <Text> - </Text>
-        <Text>{problemName}</Text>
+      <Flex
+        p={2}
+        justifyContent="space-between"
+        alignContent="center"
+        backgroundColor="gray.200"
+      >
+        <Box display="flex" alignSelf="center" mx="auto" my={0}>
+          <Text>{moduleName}</Text>
+          <Text> - </Text>
+          <Text>{problemName}</Text>
+        </Box>
+        <IconButton
+          w={4}
+          h={4}
+          variant="ghost"
+          color="gray.600"
+          icon={<LockIcon />}
+        />
       </Flex>
       {children}
-    </Box>
+    </Flex>
   );
 }
