@@ -20,18 +20,24 @@ require('codemirror/mode/css/css');
 require('codemirror/mode/javascript/javascript');
 
 export default function CodeEditor({
-  currentProblem,
-  code,
-  runCode,
-  updateCode,
   language,
+  currentProblem
+  // code,
+  // runCode,
+  // updateCode,
 }) {
   const { name } = currentProblem;
+
+  const code = useSelector((state) => state.editor.code);
+  const dispatch = useDispatch();
+
+  const setCode = (code) => dispatch(actions.loadCode(code));
+  const setRunCode = (execute) => dispatch(actions.runCode(execute));
 
   const [value, setValue] = useState(code);
 
   const debouncedUpdate = debounce((value) => {
-    updateCode(value);
+    setCode(value);
   }, 500);
 
   const handleChange = (editor, data, value) => {
@@ -39,10 +45,8 @@ export default function CodeEditor({
     debouncedUpdate(value);
   };
 
-  // const code = useSelector((state) => state.editor.code);
-  const dispatch = useDispatch();
 
-  // const setCode = (code) => dispatch(actions.loadCode(code));
+
 
   //   <span>
   //   <button
@@ -74,7 +78,7 @@ export default function CodeEditor({
         }}
         onBeforeChange={handleChange}
       />
-      <Button onClick={runCode}>Run</Button>
+      <Button onClick={() => setRunCode(true)}>Run</Button>
     </WorkspaceModuleWrapper>
   );
 }
