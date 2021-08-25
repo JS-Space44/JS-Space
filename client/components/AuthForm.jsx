@@ -52,7 +52,7 @@ const AuthForm = () => {
       if (login === false) {
         console.log('login == false')
         
-          dispatch(actions.signUpUser(username, password, email))
+         dispatch(actions.signUpUser(username, password, email))
        
         //call action for signup
       }

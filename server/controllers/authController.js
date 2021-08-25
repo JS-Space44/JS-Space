@@ -24,6 +24,7 @@ authController.startSession = (req, res, next) => {
       //secure: true,
     });
     console.log('set the cookie');
+    console.log('res.locals', res.locals);
   }
   return next();
 };
@@ -42,7 +43,7 @@ authController.loginUser = (req, res, next) => {
       console.log(err);
       return next(err);
     }
-    console.log(qres);
+    console.log(qres.rows[0]);
     authObj = qres.rows[0];
     console.log('authObj.password', authObj);
     if (!authObj) {
@@ -56,6 +57,9 @@ authController.loginUser = (req, res, next) => {
       authObj.email === email
     ) {
       res.locals.auth = true;
+      res.locals.user_name = authObj.user_name;
+      res.locals.user_id = authObj._id;
+      console.log('res.locals', res.locals);
       return next();
     } else {
       res.locals.auth = false;
