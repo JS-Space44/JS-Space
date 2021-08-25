@@ -2,14 +2,14 @@
 
 import * as types from '../constants/actionTypes';
 
-const initalState = {
+const initialState = {
   isLoggedIn: false,
   user_name: '',
   user_id: '',
 };
 
-const authReducer = (state = initalState, action) => {
-  //declare variables up here
+const authReducer = (state = initialState, action) => {
+  // declare variables up here
   console.log(action);
   let pay;
   switch (action.type) {

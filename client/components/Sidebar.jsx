@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import {
   Drawer,
   DrawerBody,
@@ -15,13 +15,28 @@ import {
   Text,
 } from '@chakra-ui/react';
 import CreateNewProblem from './CreateNewProblem';
+import actions from '../actions/actions';
 
 const mapStateToProps = ({ business }) => ({
   problems: business.problems,
   currentProblem: business.current,
 });
 
-function Sidebar({ isOpen, onClose, btnRef, problems, currentProblem }) {
+function Sidebar({
+  isOpen,
+  onClose,
+  btnRef,
+  problems,
+  currentProblem,
+  setCurrentProblem,
+}) {
+  const dispatch = useDispatch();
+  const handleClick = (id) => {
+    console.log('console.log', id);
+    return dispatch(actions.setCurrentProblem(id));
+    // onClose();
+  };
+
   return (
     <Drawer
       isOpen={isOpen}
@@ -41,7 +56,12 @@ function Sidebar({ isOpen, onClose, btnRef, problems, currentProblem }) {
             align="stretch"
           >
             {problems.map((problem, _) => (
-              <Button display="inline-block" key={problem.id} variant="ghost">
+              <Button
+                display="inline-block"
+                key={problem.id}
+                onClick={() => handleClick(problem.id)}
+                variant="ghost"
+              >
                 <Flex justifyContent="space-between">
                   <Text>{problem.id}</Text>
                   <Text>{problem.name}</Text>
