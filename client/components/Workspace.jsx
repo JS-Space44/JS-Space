@@ -26,7 +26,7 @@ function Workspace({ currentProblem }) {
     if (isRunning) return false;
     setIsRunning(true);
     setJs('');
-    return setTimeout(() => {
+    setTimeout(() => {
       setJs(js);
       setIsRunning(false);
     }, 250);
@@ -34,6 +34,7 @@ function Workspace({ currentProblem }) {
 
   return (
     <Flex minHeight="100vh" margin="0px" backgroundImage={bg}>
+      {/* problem prompt */}
       <Rnd
         default={{
           x: 40,
@@ -64,6 +65,7 @@ function Workspace({ currentProblem }) {
       >
         <ExcalidrawJS />
       </Rnd>
+
       {/* code editor */}
       <Rnd
         default={{
@@ -86,6 +88,7 @@ function Workspace({ currentProblem }) {
           runCode={runCode}
         />
       </Rnd>
+
       {/* iframe for running code in the background */}
       <CodeRunner js={js} addHistory={addHistory} />
 

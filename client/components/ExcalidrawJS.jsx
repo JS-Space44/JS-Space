@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import Excalidraw from '@excalidraw/excalidraw';
 import WorkspaceModuleWrapper from './WorkspaceModuleWrapper';
-import InitialData from '../initialData';
+import InitialData from '../initialData/excalidraw';
 
 export default function ExcalidrawJS() {
   const excalidrawRef = useRef(null);

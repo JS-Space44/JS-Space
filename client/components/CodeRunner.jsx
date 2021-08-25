@@ -72,7 +72,7 @@ export default function CodeRunner({ sandboxId, js, addHistory }) {
    * Watch for postMessage coming from our iframe
    */
   useEffect(() => {
-    window.addEventListener('message', (e) => {
+    window.addEventListener('click', (e) => {
       if (!e.data) return false; // only handle if theres data
       if (typeof e.data !== 'string') return false; // data must be a string
       if (e.data.includes('_')) return false; // don't watch for events emitted by the react library
