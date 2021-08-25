@@ -15,7 +15,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import CreateNewProblem from './CreateNewProblem';
-import * as actions from '../actions/actions';
+import actions from '../actions/actions';
 
 const mapStateToProps = ({ business }) => ({
   problems: business.problems,
@@ -36,8 +36,8 @@ function Sidebar({
 }) {
   const dispatch = useDispatch();
   const handleClick = (id) => {
-    console.log(id);
-    dispatch(actions.setCurrentProblem(id));
+    console.log("console.log", id);
+    return dispatch(actions.setCurrentProblem(id));
     // setCurrentProblem(id);
     onClose();
   };
