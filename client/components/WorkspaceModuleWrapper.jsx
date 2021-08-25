@@ -15,6 +15,7 @@ export default function WorkspaceModuleWrapper({
       borderRadius="md"
       borderColor="gray.200"
       backgroundColor="white"
+      overflow="scroll"
     >
       <Flex justifyContent="center" backgroundColor="gray.200">
         <Text>{moduleName}</Text>

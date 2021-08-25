@@ -18,6 +18,11 @@ function NavBar() {
           JS Space
         </Heading>
       </Link>
+      <Link as={NavLink} to="/login">
+        <Heading as="h3" size="md" mt={[3, 0, 0, 0]} mr={[0, 3, 3, 3]}>
+          Temp Auth Link
+        </Heading>
+      </Link>
     </Flex>
   );
 }
