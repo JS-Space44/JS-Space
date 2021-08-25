@@ -12,7 +12,7 @@ function NavBar() {
       as="nav"
       align="center"
       justify="space-between"
-      p={6}
+      p={4}
       shadow="sm"
       borderBottom="1px solid #C8C8C8"
     >

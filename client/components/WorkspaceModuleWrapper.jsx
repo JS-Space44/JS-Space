@@ -9,6 +9,7 @@ export default function WorkspaceModuleWrapper({
   return (
     <Box
       h="100%"
+      minHeight="100%"
       pt={0}
       m={0}
       border="1px"
