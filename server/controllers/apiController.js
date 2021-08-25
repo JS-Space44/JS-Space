@@ -2,20 +2,31 @@ const db = require('../models/model');
 
 const apiController = {};
 
+/* 
+this comes back with 
+rows [{
+  "_id": 2,
+  "name" : name12,
+  "description" : description,
+  "user_id" : 20,
+  "test_id" : ?
+}]
+*/
 apiController.getProblems = (req, res, next) => {
   const { user_id } = req.body;
 
   const getProblemsQuery = {
-    text: `SELECT * FROM problems WHERE user_id = $1`,
+    text: `SELECT * FROM "Problems" WHERE user_id = $1`,
   };
   const values = [user_id];
 
-  db.query(getProblemsQuery, value, (err, qres) => {
+  db.query(getProblemsQuery, values, (err, qres) => {
     if (err) {
       console.log(err);
       return next(err);
     }
-    res.locals.problems = qres;
+    res.locals.problems = qres.rows;
+    console.log('res.locals.problem', res.locals.problem);
     return next();
   });
 };
