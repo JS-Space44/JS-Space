@@ -2,6 +2,7 @@ import * as types from '../constants/actionTypes';
 
 const initialState = {
   code: '',
+  runCode: false,
 };
 
 const editorReducer = (state = initialState, action) => {
@@ -10,11 +11,11 @@ const editorReducer = (state = initialState, action) => {
       return { code: '' };
     }
     case types.LOAD_CODE: {
-      return { code: action.payload };
+      return Object.assign({}, state, {code: action.payload });
     }
     case types.RUN_CODE: {
       console.log('RUN CODE');
-      return state;
+      return Object.assign({}, state, {runCode: action.payload});
     }
 
     default:
