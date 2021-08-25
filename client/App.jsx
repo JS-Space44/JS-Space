@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import theme from './theme';
 import Layout from './components/Layout';
 import Workspace from './components/Workspace';
-import Login from './components/Login';
+import AuthForm from './components/AuthForm';
 
 const mapStateToProps = ({ business }) => ({
   problems: business.problems,
@@ -21,7 +21,7 @@ function App({ currentProblem }) {
             <Workspace currentProblem={currentProblem} />
           </Route>
           <Route path="/login">
-            <Login />
+            <AuthForm />
           </Route>
         </Layout>
       </ChakraProvider>

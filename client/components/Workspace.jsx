@@ -9,7 +9,7 @@ import bg from '../assets/bg.png';
 
 function Workspace({ currentProblem }) {
   return (
-    <Box height="100vh" margin="0px" backgroundImage={bg}>
+    <Box height="100vh" margin="0px" backgroundImage={bg} position="absolute">
       {/* problem prompt */}
       <Rnd
         default={{
