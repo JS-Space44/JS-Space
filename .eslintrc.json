@@ -25,6 +25,7 @@
     "react/destructuring-assignment": "off",
     "no-console": "off",
     "camelcase": "off",
+    "no-underscore-dangle": [2, { "allow": ["_id"] }],
     "react/prop-types": "off",
     "prettier/prettier": "error",
     // "indent": ["warn", 2],
