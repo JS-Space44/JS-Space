@@ -34,7 +34,6 @@ function Sidebar({
   problems,
   isLoggedIn,
   currentProblem,
-  setCurrentProblem,
 }) {
   const dispatch = useDispatch();
   const handleClick = (id) => {
@@ -67,6 +66,7 @@ function Sidebar({
               </Text>
             </Flex>
           )}
+          <Box mb={8} />
           <VStack
             divider={<StackDivider borderColor="gray.200" />}
             spacing={4}
@@ -80,8 +80,9 @@ function Sidebar({
                 variant="ghost"
               >
                 <Flex justifyContent="space-between">
+                  <Text key={`prob-id-${idx + 1}`}>{problem._id}</Text>
                   {currentProblem._id === problem._id ? (
-                    <CheckIcon key={`check-${idx}`} />
+                    <CheckIcon key={`check-${idx + 1} `} />
                   ) : null}
 
                   <Text key={`${i++}`}>{problem._id}</Text>

@@ -1,17 +1,19 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { GiHamburgerMenu } from 'react-icons/gi';
+
 import {
   Heading,
   Flex,
   Link,
   Button,
   Text,
+  Image,
   useDisclosure,
   IconButton,
 } from '@chakra-ui/react';
 import { HamburgerIcon } from '@chakra-ui/icons';
+import logo from '../assets/spacejs-logo.png';
 import actions from '../actions/actions';
 import Sidebar from './Sidebar';
 
@@ -35,20 +37,19 @@ function NavBar() {
       <Sidebar isOpen={isOpen} onClose={onClose} btnRef={btnRef} />
       <Link as={NavLink} to="/">
         <Flex>
-          <Heading as="h1" size="lg" mt={[3, 0, 0, 0]} mr={[0, 3, 3, 3]}>
-            JS Space
-          </Heading>
-
+          <Image src={logo} />
           <Flex alignContent="center" justifyContent="center">
             <Button
-              leftIcon={<HamburgerIcon />}
-              ml={2}
+              leftIcon={<HamburgerIcon size="lg" />}
+              ml={6}
               size="lg"
               onClick={onOpen}
               ref={btnRef}
               variant="ghost"
             >
-              Problems
+              <Text ml={1} fontSize="2xl">
+                problems
+              </Text>
             </Button>
           </Flex>
         </Flex>
@@ -60,7 +61,9 @@ function NavBar() {
           </Heading>
         </Link>
       ) : (
-        <Button onClick={logoutUser}>Logout</Button>
+        <Button variant="outline" onClick={logoutUser}>
+          Logout
+        </Button>
       )}
     </Flex>
   );
