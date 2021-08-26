@@ -12,12 +12,13 @@ import {
   Tab,
   TabPanels,
   TabPanel,
-  IconButton,
 } from '@chakra-ui/react';
 import React from 'react';
-import { EditIcon, DeleteIcon, SettingsIcon } from '@chakra-ui/icons';
+import { SettingsIcon } from '@chakra-ui/icons';
 import WorkspaceModuleWrapper from './WorkspaceModuleWrapper';
 import Tests from './Tests';
+import DeleteProblem from './DeleteProblem';
+import EditProblem from './EditProblem';
 
 export default function ProblemPrompt({
   currentProblem,
@@ -25,14 +26,6 @@ export default function ProblemPrompt({
   draggable,
 }) {
   const { _id, name, description, tests } = currentProblem;
-
-  function handleEdit() {
-    console.log('edit');
-  }
-
-  function handleDelete() {
-    console.log('delete');
-  }
 
   return (
     <WorkspaceModuleWrapper
@@ -52,19 +45,8 @@ export default function ProblemPrompt({
             </h2>
             <AccordionPanel pb={4}>
               <Flex justifyContent="flex-end">
-                <IconButton
-                  icon={<EditIcon />}
-                  onClick={handleEdit}
-                  w={6}
-                  h={6}
-                />
-                <IconButton
-                  icon={<DeleteIcon />}
-                  onClick={handleDelete}
-                  w={6}
-                  h={6}
-                  ml={2}
-                />
+                <EditProblem currentProblem={currentProblem} />
+                <DeleteProblem currentProblem={currentProblem} />
               </Flex>
             </AccordionPanel>
           </AccordionItem>
