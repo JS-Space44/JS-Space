@@ -21,10 +21,11 @@ const businessReducer = (state = initialState, action) => {
     case types.GET_PROBLEMS: {
       return {
         ...state,
-        problems: payload.problems,
+        problems: action.payload.problems,
       };
     }
+    default:
+      return state;
   }
 };
-
 export default businessReducer;
