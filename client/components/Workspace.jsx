@@ -27,7 +27,6 @@ function Workspace({ currentProblem, isLoggedIn, userId }) {
 
   useEffect(() => {
     if (isLoggedIn) {
-      console.log(isLoggedIn);
       dispatch(actions.getProblems(userId));
     } else {
       // sends session cookie to server to verify if user already logged in
@@ -41,15 +40,12 @@ function Workspace({ currentProblem, isLoggedIn, userId }) {
         setProblemPromptDraggable(!problemPromptDraggable);
         break;
       case 'code editor':
-        console.log('code editor');
         setCodeEditorDraggable(!codeEditorDraggable);
         break;
       case 'terminal':
-        console.log('terminal');
         setTerminalDraggable(!terminalDraggable);
         break;
       case 'excalidraw':
-        console.log('excalidraw');
         setExcalidrawDraggable(!excalidrawDraggable);
         break;
       default:
@@ -57,28 +53,17 @@ function Workspace({ currentProblem, isLoggedIn, userId }) {
     }
   }
 
-  // function addHistory(text) {
-  //   const newHistory = [...history, { text }];
-  //   setHistory(newHistory);
-  // }
-
-  // function clearHistory() {
-  //   setHistory([]);
-  // }
-
   return (
-    <Flex minHeight="100vh" margin="0px" backgroundImage={bg}>
+    <Flex height="100%" minHeight="100vh" margin="0px" backgroundImage={bg}>
       {/* problem prompt */}
       <Rnd
         default={{
-          x: 40,
-          y: 40,
-          width: '55vw',
+          x: 30,
+          y: 30,
+          width: '45%',
+          height: 425,
         }}
-        minWidth={200}
-        minHeight={190}
-        maxHeight="100%"
-        bounds="window"
+        bounds="parent"
         resizeGrid={[10, 10]}
         dragGrid={[10, 10]}
         disableDragging={problemPromptDraggable}
@@ -89,16 +74,15 @@ function Workspace({ currentProblem, isLoggedIn, userId }) {
           currentProblem={currentProblem}
         />
       </Rnd>
+      {/* excalidraw */}
       <Rnd
         default={{
-          x: 40,
-          y: 700,
-          width: '55vw',
-          height: '40vh',
+          x: 30,
+          y: 500,
+          width: '45%',
+          height: 525,
         }}
-        minWidth={200}
-        minHeight={190}
-        bounds="window"
+        bounds="parent"
         resizeGrid={[10, 10]}
         dragGrid={[10, 10]}
         disableDragging={excalidrawDraggable}
@@ -112,14 +96,12 @@ function Workspace({ currentProblem, isLoggedIn, userId }) {
       {/* code editor */}
       <Rnd
         default={{
-          x: 950,
-          y: 40,
-          height: '40vh',
+          x: 900,
+          y: 30,
+          width: '45%',
+          height: 425,
         }}
-        minWidth={500}
-        minHeight={300}
-        maxHeight="100%"
-        bounds="window"
+        bounds="parent"
         resizeGrid={[10, 10]}
         dragGrid={[10, 10]}
         disableDragging={codeEditorDraggable}
@@ -138,21 +120,18 @@ function Workspace({ currentProblem, isLoggedIn, userId }) {
       {/* terminal */}
       <Rnd
         default={{
-          x: 950,
-          y: 900,
-          width: '30vw',
-          height: '20vh',
+          x: 900,
+          y: 500,
+          width: '45%',
+          height: 525,
         }}
-        minWidth={500}
-        minHeight={190}
-        bounds="window"
+        bounds="parent"
         resizeGrid={[10, 10]}
         dragGrid={[10, 10]}
         disableDragging={terminalDraggable}
       >
         <Terminal
           history={history}
-          // clearHistory={clearHistory}
           currentProblem={currentProblem}
           toggleDrag={toggleModuleDrag}
           draggable={terminalDraggable}
