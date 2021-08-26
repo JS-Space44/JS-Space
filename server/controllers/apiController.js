@@ -12,6 +12,24 @@ rows [{
   "test_id" : ?
 }]
 */
+
+apiController.createProblem = (req, res, next) => {
+  const { user_id, problem_name, problem_description } = req.body;
+
+  const createProblemsQuery = {
+    text: `INSERT INTO "Problems" (user_id, name, description) VALUES ($1, $2, $3) RETURNING *`
+  };
+  const values = [user_id, problem_name, problem_description];
+  db.query(createProblemsQuery, values, (err, qres) => {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+    res.locals.createdProblem = qres.rows[0];
+    return next();
+  });
+};
+
 apiController.getProblems = (req, res, next) => {
   const { user_id } = req.body;
 
