@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
 import {
   Drawer,
@@ -13,7 +14,9 @@ import {
   Button,
   Flex,
   Text,
+  Link,
 } from '@chakra-ui/react';
+import { CheckIcon } from '@chakra-ui/icons';
 import CreateNewProblem from './CreateNewProblem';
 import actions from '../actions/actions';
 
@@ -51,7 +54,18 @@ function Sidebar({
         <DrawerCloseButton />
         <DrawerHeader>Problems</DrawerHeader>
         <DrawerBody>
-          {isLoggedIn ? <CreateNewProblem /> : 'login'}
+          {isLoggedIn ? (
+            <CreateNewProblem />
+          ) : (
+            <Flex direction="column" justifyContent="flex-end" mb={4}>
+              <Text>
+                <Link color="teal.500" as={RouterLink} to="/login">
+                  Log in
+                </Link>{' '}
+                to create a problem
+              </Text>
+            </Flex>
+          )}
           <VStack
             divider={<StackDivider borderColor="gray.200" />}
             spacing={4}
@@ -65,6 +79,8 @@ function Sidebar({
                 variant="ghost"
               >
                 <Flex justifyContent="space-between">
+                  {currentProblem.id === problem.id ? <CheckIcon /> : null}
+
                   <Text>{problem.id}</Text>
                   <Text>{problem.name}</Text>
                 </Flex>
