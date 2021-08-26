@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect, useDispatch } from 'react-redux';
 import { Flex } from '@chakra-ui/react';
 import { Rnd } from 'react-rnd';
 import ProblemPrompt from './ProblemPrompt';
@@ -7,13 +8,29 @@ import CodeEditor from './CodeEditor';
 import CodeRunner from './CodeRunner';
 import Terminal from './Terminal';
 import bg from '../assets/bg.png';
+import actions from '../actions/actions';
 
-function Workspace({ currentProblem }) {
+const mapStateToProps = ({ business, auth }) => ({
+  problems: business.problems,
+  currentProblem: business.current,
+  isLoggedIn: auth.isLoggedIn,
+  userId: auth.user_id,
+});
+
+function Workspace({ currentProblem, isLoggedIn, userId }) {
   const [history, setHistory] = useState([]);
   const [codeEditorDraggable, setCodeEditorDraggable] = useState(false);
   const [excalidrawDraggable, setExcalidrawDraggable] = useState(false);
   const [terminalDraggable, setTerminalDraggable] = useState(false);
   const [problemPromptDraggable, setProblemPromptDraggable] = useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      console.log(isLoggedIn);
+      dispatch(actions.getProblems(userId));
+    }
+  }, [isLoggedIn, userId, dispatch]);
 
   function toggleModuleDrag(name) {
     switch (name) {
@@ -142,4 +159,4 @@ function Workspace({ currentProblem }) {
   );
 }
 
-export default Workspace;
+export default connect(mapStateToProps, null)(Workspace);
