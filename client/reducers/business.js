@@ -27,6 +27,15 @@ const businessReducer = (state = initialState, action) => {
         problems: [...state.problems, ...action.payload],
       };
     }
+    // case types.GET_TEST_FOR_PROBLEM: {
+    //   console.log('GET_TEST_FOR_PROBLEM', action.payload);
+    //   let current = state.current;
+    //   current.tests = action.payload;
+    //   return {
+    //     ...state,
+    //     current,
+    //   };
+    // }
 
     default:
       return state;

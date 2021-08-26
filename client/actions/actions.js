@@ -63,6 +63,22 @@ actions.getProblems = (user_id) => (dispatch) => {
       });
     });
 };
+
+actions.getTestsForProblem = (problem_id) => (dispatch) => {
+  fetch('/api/getTest', {
+    method: 'POST',
+    headers: { 'Content-Type': 'Application/JSON' },
+    body: JSON.stringify({ problem_id }),
+  })
+    .then((res) => res.json())
+    .then((tests) => {
+      console.log('test data', tests);
+      dispatch({
+        type: types.GET_TEST_FOR_PROBLEM,
+        payload: tests,
+      });
+    });
+};
 // get problem based on user_name or user_id
 // gets called on login - state holding array of problems
 // need get problems sql call
