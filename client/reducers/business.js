@@ -24,7 +24,7 @@ const businessReducer = (state = initialState, action) => {
     case types.GET_PROBLEMS: {
       return {
         ...state,
-        problems: [...state.problems, ...action.payload],
+        problems: [...action.payload],
       };
     }
     // case types.GET_TEST_FOR_PROBLEM: {
