@@ -29,8 +29,11 @@ function Workspace({ currentProblem, isLoggedIn, userId }) {
     if (isLoggedIn) {
       console.log(isLoggedIn);
       dispatch(actions.getProblems(userId));
+    } else {
+      // sends session cookie to server to verify if user already logged in 
+      dispatch(actions.verifyLogin());
     }
-  }, [isLoggedIn, userId, dispatch]);
+  }, [isLoggedIn, userId]);
 
   function toggleModuleDrag(name) {
     switch (name) {

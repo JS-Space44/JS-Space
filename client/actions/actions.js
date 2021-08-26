@@ -164,7 +164,22 @@ actions.LoginUser = (email, password) => (dispatch) => {
     });
 };
 
-actions.logoutUser = () => ({
+actions.verifyLogin = () => (dispatch) => {
+   return fetch('/auth', {
+    method: 'GET',
+    headers: { 'Content-Type': 'Application/JSON' },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      const { user_name, user_id, auth } = res;
+      dispatch({
+        type: types.LOGIN_USER,
+        payload: { user_name, user_id, auth },
+      });
+    });
+};
+
+actions.LogoutUser = () => ({
   type: types.LOGOUT_USER,
 });
 

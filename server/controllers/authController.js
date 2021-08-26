@@ -1,5 +1,8 @@
+const config = require('config');
 const db = require('../models/model');
 const Bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const fs = require('fs');
 
 const authController = {};
 
@@ -12,19 +15,22 @@ authController.setCookie = (req, res, next) => {
 };
 
 authController.checkCookie = (req, res, next) => {
-  console.log('req.cookies', req.cookies);
+  // console.log('CHECK COOKIE req.cookies', req.cookies);
+  const { Session } = req.cookies;
+  const decoded = jwt.verify(Session, config.get('JWT_SECRET'));
+  res.locals.sessionData = decoded;
   return next();
 };
 
 //might have to have a sessions id in database, not sure though?
 authController.startSession = (req, res, next) => {
   if (res.locals.auth === true) {
-    res.cookie('Session', 'logged in as user', {
+    const token = jwt.sign({ user_id: res.locals.user_id, user_name: res.locals.user_name, auth: true }, config.get('JWT_SECRET'));
+    res.cookie('Session', token, {
       httpOnly: true,
-      //secure: true,
+      secure: true,
     });
     console.log('set the cookie');
-    console.log('res.locals', res.locals);
   }
   return next();
 };
