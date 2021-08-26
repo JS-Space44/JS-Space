@@ -108,7 +108,7 @@ apiController.getProblems = (req, res, next) => {
       e.tests = [
         {
           _id: e.test_id,
-          func_with_args: e.func_with_args,
+          funcWithArgs: e.func_with_args,
         },
       ];
       e.solutions = [
@@ -122,10 +122,12 @@ apiController.getProblems = (req, res, next) => {
       delete e.func_with_args;
       delete e.problem_id;
       delete e.test_id;
+      delete e.user_id;
+      delete e.test_id;
     });
     console.log('problemsArr', problemsArr);
     res.locals.problems = problemsArr;
-    console.log('res.locals.problem', res.locals.problem);
+    console.log('res.locals.problems', res.locals.problems);
     return next();
   });
 };
