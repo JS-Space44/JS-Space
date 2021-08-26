@@ -131,6 +131,7 @@ actions.setCurrentProblem = (id) => (dispatch) => {
   });
 };
 
+// This all happens in the Editor reducer
 actions.clearCode = () => ({
   type: types.CLEAR_CODE,
   payload: '',
