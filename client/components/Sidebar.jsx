@@ -35,8 +35,8 @@ function Sidebar({
   const dispatch = useDispatch();
   const handleClick = (id) => {
     console.log('console.log', id);
-    return dispatch(actions.setCurrentProblem(id));
-    // onClose();
+    dispatch(actions.setCurrentProblem(id));
+    onClose();
   };
 
   return (

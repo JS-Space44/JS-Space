@@ -19,13 +19,7 @@ import 'codemirror/lib/codemirror.css';
 require('codemirror/mode/css/css');
 require('codemirror/mode/javascript/javascript');
 
-export default function CodeEditor({
-  language,
-  currentProblem
-  // code,
-  // runCode,
-  // updateCode,
-}) {
+export default function CodeEditor({ language, currentProblem, toggleDrag }) {
   const { name } = currentProblem;
 
   const code = useSelector((state) => state.editor.code);
@@ -45,9 +39,6 @@ export default function CodeEditor({
     debouncedUpdate(value);
   };
 
-
-
-
   //   <span>
   //   <button
   //     onClick={() => {
@@ -61,7 +52,11 @@ export default function CodeEditor({
   // </span>
 
   return (
-    <WorkspaceModuleWrapper moduleName="code editor" problemName={name}>
+    <WorkspaceModuleWrapper
+      moduleName="code editor"
+      problemName={name}
+      toggleDrag={toggleDrag}
+    >
       <CodeMirror
         value={value}
         options={{

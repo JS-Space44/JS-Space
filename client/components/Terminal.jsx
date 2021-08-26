@@ -2,10 +2,19 @@ import { Button } from '@chakra-ui/react';
 import React from 'react';
 import WorkspaceModuleWrapper from './WorkspaceModuleWrapper';
 
-export default function Terminal({ currentProblem, history, clearHistory }) {
+export default function Terminal({
+  currentProblem,
+  history,
+  clearHistory,
+  toggleDrag,
+}) {
   const { name } = currentProblem;
   return (
-    <WorkspaceModuleWrapper moduleName="terminal" problemName={name}>
+    <WorkspaceModuleWrapper
+      moduleName="terminal"
+      problemName={name}
+      toggleDrag={toggleDrag}
+    >
       <div className="playground-console-container">
         <div className="playground-console">
           <ul>

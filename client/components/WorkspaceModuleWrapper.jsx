@@ -1,17 +1,21 @@
-import { LockIcon } from '@chakra-ui/icons';
-import { Box, Text, Flex, IconButton } from '@chakra-ui/react';
 import React from 'react';
+import { LockIcon, UnlockIcon } from '@chakra-ui/icons';
+import { Box, Text, Flex, IconButton } from '@chakra-ui/react';
 
 export default function WorkspaceModuleWrapper({
   children,
   moduleName,
   problemName,
+  toggleDrag,
+  draggable,
 }) {
+  function handleClick() {
+    toggleDrag(moduleName);
+  }
+
   return (
     <Flex
       direction="column"
-      h="100%"
-      minHeight="100%"
       pt={0}
       m={0}
       border="1px"
@@ -21,22 +25,32 @@ export default function WorkspaceModuleWrapper({
       overflow="scroll"
     >
       <Flex
-        p={2}
         justifyContent="space-between"
-        alignContent="center"
         backgroundColor="gray.200"
+        px={1}
+        py={2}
+        alignContent="center"
       >
-        <Box display="flex" alignSelf="center" mx="auto" my={0}>
-          <Text>{moduleName}</Text>
+        <Box
+          display="flex"
+          alignSelf="center"
+          justifyContent="center"
+          mx="auto"
+          my={0}
+        >
+          <Text fontSize="sm">{moduleName}</Text>
           <Text> - </Text>
-          <Text>{problemName}</Text>
+          <Text fontSize="sm">{problemName}</Text>
         </Box>
         <IconButton
-          w={4}
-          h={4}
+          icon={draggable ? <UnlockIcon /> : <LockIcon />}
+          w={3}
+          h={3}
+          m={0}
+          p={1}
+          onClick={handleClick}
           variant="ghost"
           color="gray.600"
-          icon={<LockIcon />}
         />
       </Flex>
       {children}

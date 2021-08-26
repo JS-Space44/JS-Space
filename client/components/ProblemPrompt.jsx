@@ -4,33 +4,26 @@ import {
   Flex,
   Accordion,
   AccordionItem,
-  AccordionHeader,
   AccordionPanel,
   AccordionButton,
-  AccordionIcon,
   Box,
-  Menu,
-  MenuButton,
   Tabs,
   TabList,
   Tab,
   TabPanels,
   TabPanel,
-  MenuItem,
-  MenuList,
   IconButton,
 } from '@chakra-ui/react';
 import React from 'react';
-import {
-  EditIcon,
-  HamburgerIcon,
-  DeleteIcon,
-  SettingsIcon,
-} from '@chakra-ui/icons';
+import { EditIcon, DeleteIcon, SettingsIcon } from '@chakra-ui/icons';
 import WorkspaceModuleWrapper from './WorkspaceModuleWrapper';
 import Tests from './Tests';
 
-export default function ProblemPrompt({ currentProblem }) {
+export default function ProblemPrompt({
+  currentProblem,
+  toggleDrag,
+  draggable,
+}) {
   const { id, name, description, tests } = currentProblem;
 
   function handleEdit() {
@@ -42,7 +35,12 @@ export default function ProblemPrompt({ currentProblem }) {
   }
 
   return (
-    <WorkspaceModuleWrapper moduleName="problem prompt" problemName={name}>
+    <WorkspaceModuleWrapper
+      moduleName="problem prompt"
+      toggleDrag={toggleDrag}
+      draggable={draggable}
+      problemName={name}
+    >
       <Flex direction="column" py={2}>
         <Accordion allowToggle>
           <AccordionItem border="none">
