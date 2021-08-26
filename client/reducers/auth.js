@@ -9,8 +9,8 @@ const initialState = {
 };
 
 const authReducer = (state = initialState, action) => {
-  // declare variables up here
-  console.log(action);
+  // hook state variables for login Session cookie manipulation and retrieval
+
   let pay;
   switch (action.type) {
     // case types.   - dclare switch types here

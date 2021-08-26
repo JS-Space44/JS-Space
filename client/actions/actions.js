@@ -179,9 +179,16 @@ actions.verifyLogin = () => (dispatch) => {
     });
 };
 
-actions.LogoutUser = () => ({
-  type: types.LOGOUT_USER,
-});
+actions.logoutUser = () => (dispatch) => {
+  return fetch('/auth/logout', {
+    method: 'GET'
+  })
+    .then(() => {
+      dispatch({
+        type: types.LOGOUT_USER,
+      });
+    });
+};
 
 actions.setCurrentProblem = (_id) => (dispatch) => {
   dispatch({
