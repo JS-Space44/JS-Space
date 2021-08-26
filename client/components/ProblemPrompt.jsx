@@ -24,7 +24,7 @@ export default function ProblemPrompt({
   toggleDrag,
   draggable,
 }) {
-  const { id, name, description, tests } = currentProblem;
+  const { _id, name, description, tests } = currentProblem;
 
   function handleEdit() {
     console.log('edit');
