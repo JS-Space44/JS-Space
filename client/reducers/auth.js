@@ -5,7 +5,7 @@ import * as types from '../constants/actionTypes';
 const initialState = {
   isLoggedIn: false,
   user_name: '',
-  user_id: '',
+  user_id: '0',
 };
 
 const authReducer = (state = initialState, action) => {
