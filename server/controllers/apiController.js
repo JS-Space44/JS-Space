@@ -17,7 +17,7 @@ apiController.createProblem = (req, res, next) => {
   const { user_id, problem_name, problem_description } = req.body;
 
   const createProblemsQuery = {
-    text: `INSERT INTO "Problems" (user_id, name, description) VALUES ($1, $2, $3) RETURNING *`
+    text: `INSERT INTO "Problems" (user_id, name, description) VALUES ($1, $2, $3) RETURNING *`,
   };
   const values = [user_id, problem_name, problem_description];
   db.query(createProblemsQuery, values, (err, qres) => {
@@ -85,17 +85,51 @@ apiController.deleteProblem = (req, res, next) => {
 
 apiController.deleteTestFromProblem = (req, res, next) => {
   const { problem_id } = req.body;
-  const deleteTestFromProblem = {
+  const deleteTestFromProblemQuery = {
     text: `DELETE FROM "Problems" WHERE _id=$1;`,
   };
   const values = [problem_id];
-  db.query(deleteTestFromProblem, values, (err, qres) => {
+  db.query(deleteTestFromProblemQuery, values, (err, qres) => {
     if (err) {
       console.log(err);
       return next(err);
     }
     res.locals.tests = qres;
     console.log('res.locals from delete tests', res.locals);
+    return next();
+  });
+};
+
+apiController.updateProblem = (req, res, next) => {
+  const { problem_id, name, description } = req.body;
+  const updateProblemQuery = {
+    text: `UPDATE "Problems" SET name=$1, description=$2 WHERE _id=$3`,
+  };
+  const values = [name, description, problem_id];
+  db.query(updateProblemQuery, values, (err, qres) => {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+    res.locals = qres;
+    console.log('res.locals from updateProblem', res.locals);
+    return next();
+  });
+};
+
+apiController.updateTestForProblem = (req, res, next) => {
+  const { problem_id, user_id, tests, test_id } = req.body;
+  const updateTestForProblemQuery = {
+    text: `UPDATE "Test" SET func_with_args=$1 WHERE _id=$2`,
+  };
+  const values = [tests, test_id];
+  db.query(updateTestForProblemQuery, values, (err, qres) => {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+    res.locals = qres;
+    console.log('res.locals from updateTestForProblem', res.locals);
     return next();
   });
 };

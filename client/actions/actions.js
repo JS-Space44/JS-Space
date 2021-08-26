@@ -68,7 +68,7 @@ actions.getProblems = (user_id) => (dispatch) => {
 // need get problems sql call
 
 actions.updateProblems =
-  (problem_id, user_id, name, description, tests) => (dispatch) => {
+  (problem_id, user_id, name, description, tests, test_id) => (dispatch) => {
     const updateProblemObj = {
       problem_id,
       user_id,
