@@ -1,5 +1,83 @@
 import React from 'react';
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  IconButton,
+  Button,
+  useDisclosure,
+  ModalFooter,
+  Tooltip,
+  useToast,
+} from '@chakra-ui/react';
+import { useHistory } from 'react-router-dom';
+import { DeleteIcon } from '@chakra-ui/icons';
 
-export default function DeleteProblem() {
-  return <div>delete problem modal</div>;
+function DeleteProblem({ currentProblem }) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
+  const history = useHistory();
+
+  const handleDelete = () => {
+    try {
+      // make delete request from db
+      // if successful change current problem to playground
+      // show toast
+      // call goes here...
+      // then(() => {
+      //   toast({
+      //     title: 'Problem deleted',
+      //     status: 'success',
+      //     duration: 4000,
+      //     isClosable: true,
+      //   });
+      // });
+    } catch (error) {
+      toast({
+        title: 'Something went wrong',
+        description: error,
+        status: 'error',
+        duration: 4000,
+        isClosable: true,
+      });
+    }
+  };
+
+  return (
+    <>
+      <Tooltip hasArrow label="Delete Problem" placement="bottom">
+        <IconButton
+          disabled={currentProblem._id === 0}
+          variant="ghost"
+          icon={<DeleteIcon />}
+          onClick={onOpen}
+          w={6}
+          h={6}
+          ml={2}
+        />
+      </Tooltip>
+
+      <Modal isOpen={isOpen} onClose={onClose} p={8}>
+        <ModalOverlay />
+        <ModalContent borderRadius="md">
+          <ModalHeader mt={3}>
+            Are you sure you want to delete {currentProblem.name}?
+          </ModalHeader>
+          <ModalCloseButton />
+          <ModalFooter>
+            <Button mr={3} onClick={handleDelete}>
+              Delete
+            </Button>
+            <Button variant="ghost" onClick={onClose}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
+  );
 }
+
+export default DeleteProblem;
