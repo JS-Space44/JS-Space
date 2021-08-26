@@ -1,5 +1,4 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
 import { Flex } from '@chakra-ui/react';
 import { Rnd } from 'react-rnd';
 import ProblemPrompt from './ProblemPrompt';
@@ -10,11 +9,33 @@ import Terminal from './Terminal';
 import bg from '../assets/bg.png';
 
 function Workspace({ currentProblem }) {
-  const [history, setHistory] = React.useState([]);
-  // const [js, setJs] = React.useState('');
-  const js = useSelector((state) => state.editor.code);
+  const [history, setHistory] = useState([]);
+  const [codeEditorDraggable, setCodeEditorDraggable] = useState(false);
+  const [excalidrawDraggable, setExcalidrawDraggable] = useState(false);
+  const [terminalDraggable, setTerminalDraggable] = useState(false);
+  const [problemPromptDraggable, setProblemPromptDraggable] = useState(false);
 
-  const [isRunning, setIsRunning] = React.useState(false);
+  function toggleModuleDrag(name) {
+    switch (name) {
+      case 'problem prompt':
+        setProblemPromptDraggable(!problemPromptDraggable);
+        break;
+      case 'code editor':
+        console.log('code editor');
+        setCodeEditorDraggable(!codeEditorDraggable);
+        break;
+      case 'terminal':
+        console.log('terminal');
+        setTerminalDraggable(!terminalDraggable);
+        break;
+      case 'excalidraw':
+        console.log('excalidraw');
+        setExcalidrawDraggable(!excalidrawDraggable);
+        break;
+      default:
+        break;
+    }
+  }
 
   function addHistory(text) {
     const newHistory = [...history, { text }];
@@ -24,16 +45,6 @@ function Workspace({ currentProblem }) {
   function clearHistory() {
     setHistory([]);
   }
-
-  // function runCode() {
-  //   if (isRunning) return false;
-  //   setIsRunning(true);
-  //   setJs('');
-  //   setTimeout(() => {
-  //     setJs(js);
-  //     setIsRunning(false);
-  //   }, 250);
-  // }
 
   return (
     <Flex minHeight="100vh" margin="0px" backgroundImage={bg}>
@@ -50,8 +61,13 @@ function Workspace({ currentProblem }) {
         bounds="window"
         resizeGrid={[10, 10]}
         dragGrid={[10, 10]}
+        disableDragging={problemPromptDraggable}
       >
-        <ProblemPrompt currentProblem={currentProblem} />
+        <ProblemPrompt
+          toggleDrag={toggleModuleDrag}
+          draggable={problemPromptDraggable}
+          currentProblem={currentProblem}
+        />
       </Rnd>
       <Rnd
         default={{
@@ -65,8 +81,12 @@ function Workspace({ currentProblem }) {
         bounds="window"
         resizeGrid={[10, 10]}
         dragGrid={[10, 10]}
+        disableDragging={excalidrawDraggable}
       >
-        <ExcalidrawJS />
+        <ExcalidrawJS
+          toggleDrag={toggleModuleDrag}
+          draggable={excalidrawDraggable}
+        />
       </Rnd>
 
       {/* code editor */}
@@ -82,13 +102,13 @@ function Workspace({ currentProblem }) {
         bounds="window"
         resizeGrid={[10, 10]}
         dragGrid={[10, 10]}
+        disableDragging={codeEditorDraggable}
       >
         <CodeEditor
           language="javascript"
           currentProblem={currentProblem}
-          // code={js}
-          // updateCode={setJs}
-          // runCode={runCode}
+          toggleDrag={toggleModuleDrag}
+          draggable={codeEditorDraggable}
         />
       </Rnd>
 
@@ -108,11 +128,14 @@ function Workspace({ currentProblem }) {
         bounds="window"
         resizeGrid={[10, 10]}
         dragGrid={[10, 10]}
+        disableDragging={terminalDraggable}
       >
         <Terminal
           history={history}
           clearHistory={clearHistory}
           currentProblem={currentProblem}
+          toggleDrag={toggleModuleDrag}
+          draggable={terminalDraggable}
         />
       </Rnd>
     </Flex>

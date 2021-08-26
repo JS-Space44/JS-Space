@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {
   Flex,
@@ -26,6 +27,7 @@ const AuthForm = () => {
   const [values, setValues] = useState(INITIAL_STATE);
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   function handleChange(event) {
     event.persist();
@@ -44,6 +46,7 @@ const AuthForm = () => {
       // call action for login
 
       dispatch(actions.LoginUser(email, password));
+      history.push('/');
     }
     if (login === false) {
       console.log('login == false');

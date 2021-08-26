@@ -3,10 +3,10 @@ import Excalidraw from '@excalidraw/excalidraw';
 import WorkspaceModuleWrapper from './WorkspaceModuleWrapper';
 import InitialData from '../initialData/excalidraw';
 
-export default function ExcalidrawJS() {
+export default function ExcalidrawJS({ toggleDrag }) {
   const excalidrawRef = useRef(null);
   return (
-    <WorkspaceModuleWrapper moduleName="Excalidraw">
+    <WorkspaceModuleWrapper moduleName="excalidraw" toggleDrag={toggleDrag}>
       <Excalidraw
         ref={excalidrawRef}
         initialData={InitialData}
