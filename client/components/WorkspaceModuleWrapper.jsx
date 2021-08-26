@@ -20,7 +20,7 @@ export default function WorkspaceModuleWrapper({
       m={0}
       border="1px"
       borderRadius="md"
-      minHeight="100%"
+      // minHeight="100%"
       height="100%"
       borderColor="gray.200"
       backgroundColor="white"
@@ -29,8 +29,6 @@ export default function WorkspaceModuleWrapper({
       <Flex
         justifyContent="space-between"
         backgroundColor="gray.200"
-        px={1}
-        py={2}
         alignContent="center"
       >
         <Box
@@ -46,10 +44,8 @@ export default function WorkspaceModuleWrapper({
         </Box>
         <IconButton
           icon={draggable ? <LockIcon /> : <UnlockIcon />}
-          w={3}
-          h={3}
+          size="sm"
           m={0}
-          p={1}
           onClick={() => handleClick(moduleName)}
           variant="ghost"
           color="gray.600"

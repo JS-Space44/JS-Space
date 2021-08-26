@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Controlled as CodeMirror } from 'react-codemirror2';
 import debounce from 'lodash.debounce';
-import { Button } from '@chakra-ui/react';
+import { Button, Flex } from '@chakra-ui/react';
 import actions from '../actions/actions';
 import WorkspaceModuleWrapper from './WorkspaceModuleWrapper';
 import 'codemirror/addon/edit/matchbrackets';
@@ -21,14 +21,12 @@ require('codemirror/mode/javascript/javascript');
 
 export default function CodeEditor({ language, currentProblem, toggleDrag }) {
   const { name } = currentProblem;
-
   const code = useSelector((state) => state.editor.code);
+  const [value, setValue] = useState(code);
   const dispatch = useDispatch();
-
   const setCode = (code) => dispatch(actions.loadCode(code));
   const setRunCode = (execute) => dispatch(actions.runCode(execute));
-
-  const [value, setValue] = useState(code);
+  const clearCode = () => dispatch(actions.clearCode());
 
   const debouncedUpdate = debounce((value) => {
     setCode(value);
@@ -38,18 +36,6 @@ export default function CodeEditor({ language, currentProblem, toggleDrag }) {
     setValue(value);
     debouncedUpdate(value);
   };
-
-  //   <span>
-  //   <button
-  //     onClick={() => {
-  //       console.log('CLEAR CODE');
-  //       dispatch(actions.clearCode());
-  //     }}
-  //   >
-  //     clear
-  //   </button>
-  //   <button>run</button>
-  // </span>
 
   return (
     <WorkspaceModuleWrapper
@@ -66,6 +52,7 @@ export default function CodeEditor({ language, currentProblem, toggleDrag }) {
           lineNumbers: true,
           lint: true,
           hintOptions: true,
+          fontSize: '16px',
           matchBrackets: true,
           autoCloseBrackets: true,
           indentUnit: 2,
@@ -73,7 +60,10 @@ export default function CodeEditor({ language, currentProblem, toggleDrag }) {
         }}
         onBeforeChange={handleChange}
       />
-      <Button onClick={() => setRunCode(true)}>Run</Button>
+      <Flex>
+        <Button onClick={() => setRunCode(true)}>Run</Button>
+        {/* <Button onClick={() => clearCode()}>Clear</Button> */}
+      </Flex>
     </WorkspaceModuleWrapper>
   );
 }
