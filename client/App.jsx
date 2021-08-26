@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { ChakraProvider } from '@chakra-ui/react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import theme from './theme';
@@ -7,18 +6,13 @@ import Layout from './components/Layout';
 import Workspace from './components/Workspace';
 import AuthForm from './components/AuthForm';
 
-const mapStateToProps = ({ business }) => ({
-  problems: business.problems,
-  currentProblem: business.current,
-});
-
-function App({ currentProblem }) {
+function App() {
   return (
     <Router>
       <ChakraProvider theme={theme}>
         <Layout>
           <Route exact path="/">
-            <Workspace currentProblem={currentProblem} />
+            <Workspace />
           </Route>
           <Route path="/login">
             <AuthForm />
@@ -29,4 +23,4 @@ function App({ currentProblem }) {
   );
 }
 
-export default connect(mapStateToProps, null)(App);
+export default App;
