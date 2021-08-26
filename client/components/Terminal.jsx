@@ -1,5 +1,6 @@
-import { Button } from '@chakra-ui/react';
+import { Box, Button, List, ListIcon, ListItem } from '@chakra-ui/react';
 import React from 'react';
+import { ChevronRightIcon } from '@chakra-ui/icons';
 import WorkspaceModuleWrapper from './WorkspaceModuleWrapper';
 
 export default function Terminal({
@@ -15,23 +16,22 @@ export default function Terminal({
       problemName={name}
       toggleDrag={toggleDrag}
     >
-      <div className="playground-console-container">
-        <div className="playground-console">
-          <ul>
-            {history.map((item, index) => (
-              <li key={`item -${index + 1}`} className="console-line">
-                <span className="console-carrot">&gt;</span>{' '}
-                <span className="console-text">{item.text}</span>
-              </li>
+      <Box>
+        <Box>
+          <List>
+            {history.map((outputLine, index) => (
+              <ListItem key={`outputLine -${index + 1}`}>
+                <ListIcon as={ChevronRightIcon} color="green.500" />
+                {outputLine}
+              </ListItem>
             ))}
-            <li>
-              <span>&gt;</span>
-            </li>
-          </ul>
-
-          <Button onClick={clearHistory}>Clear</Button>
-        </div>
-      </div>
+            <ListItem>
+              <ListIcon as={ChevronRightIcon} color="green.500" />
+            </ListItem>
+          </List>
+        </Box>
+        <Button onClick={clearHistory}>Clear</Button>
+      </Box>
     </WorkspaceModuleWrapper>
   );
 }

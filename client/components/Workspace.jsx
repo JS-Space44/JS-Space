@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { Flex } from '@chakra-ui/react';
 import { Rnd } from 'react-rnd';
 import ProblemPrompt from './ProblemPrompt';
@@ -18,7 +18,7 @@ const mapStateToProps = ({ business, auth }) => ({
 });
 
 function Workspace({ currentProblem, isLoggedIn, userId }) {
-  const [history, setHistory] = useState([]);
+  const history = useSelector((state) => state.editor.history);
   const [codeEditorDraggable, setCodeEditorDraggable] = useState(false);
   const [excalidrawDraggable, setExcalidrawDraggable] = useState(false);
   const [terminalDraggable, setTerminalDraggable] = useState(false);
@@ -30,7 +30,7 @@ function Workspace({ currentProblem, isLoggedIn, userId }) {
       console.log(isLoggedIn);
       dispatch(actions.getProblems(userId));
     } else {
-      // sends session cookie to server to verify if user already logged in 
+      // sends session cookie to server to verify if user already logged in
       dispatch(actions.verifyLogin());
     }
   }, [isLoggedIn, userId]);
@@ -57,14 +57,14 @@ function Workspace({ currentProblem, isLoggedIn, userId }) {
     }
   }
 
-  function addHistory(text) {
-    const newHistory = [...history, { text }];
-    setHistory(newHistory);
-  }
+  // function addHistory(text) {
+  //   const newHistory = [...history, { text }];
+  //   setHistory(newHistory);
+  // }
 
-  function clearHistory() {
-    setHistory([]);
-  }
+  // function clearHistory() {
+  //   setHistory([]);
+  // }
 
   return (
     <Flex minHeight="100vh" margin="0px" backgroundImage={bg}>
@@ -133,7 +133,7 @@ function Workspace({ currentProblem, isLoggedIn, userId }) {
       </Rnd>
 
       {/* iframe for running code in the background */}
-      <CodeRunner addHistory={addHistory} />
+      <CodeRunner />
 
       {/* terminal */}
       <Rnd
@@ -152,7 +152,7 @@ function Workspace({ currentProblem, isLoggedIn, userId }) {
       >
         <Terminal
           history={history}
-          clearHistory={clearHistory}
+          // clearHistory={clearHistory}
           currentProblem={currentProblem}
           toggleDrag={toggleModuleDrag}
           draggable={terminalDraggable}

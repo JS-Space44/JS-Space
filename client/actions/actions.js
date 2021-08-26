@@ -165,7 +165,7 @@ actions.LoginUser = (email, password) => (dispatch) => {
 };
 
 actions.verifyLogin = () => (dispatch) => {
-   return fetch('/auth', {
+  return fetch('/auth', {
     method: 'GET',
     headers: { 'Content-Type': 'Application/JSON' },
   })
@@ -204,6 +204,11 @@ actions.loadCode = (code) => ({
 actions.runCode = (execute) => ({
   type: types.RUN_CODE,
   payload: execute,
+});
+
+actions.addHistory = (history) => ({
+  type: types.ADD_HISTORY,
+  payload: history,
 });
 
 export default actions;

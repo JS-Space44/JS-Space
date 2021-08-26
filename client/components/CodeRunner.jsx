@@ -14,8 +14,9 @@ const buildIframeSrc = (js) => `
   <body>
   <script>
     function scotchLog() {
-      let output = "", arg, i;
-      for (i = 0; i < arguments.length; i++) {
+      let output = "";
+      let arg;
+      for (let i = 0; i < arguments.length; i++) {
         arg = arguments[i];
         output += typeof arg === "object" ? JSON.stringify(arg) : arg;
       }
@@ -36,17 +37,16 @@ const buildIframeSrc = (js) => `
 
 /**
  * The browser component has a nested iframe
- * Every time the html, css, js props change, destroy the iframe and create a new iframe
+ * Every time the  js props change, destroy the iframe and create a new iframe
  */
-export default function CodeRunner({ sandboxId, addHistory }) {
+export default function CodeRunner() {
   const iframeContainer = useRef(null);
   const js = useSelector((state) => state.editor.code);
-
+  // const history = useSelector((state) => state.editor.history);
   const dispatch = useDispatch();
-
   const runCode = useSelector((state) => state.editor.runCode);
   const setRunCode = (execute) => dispatch(actions.runCode(execute));
-
+  const addHistory = (history) => dispatch(actions.addHistory(history));
 
   /**
    * Run all our code in the iframe
@@ -97,7 +97,7 @@ export default function CodeRunner({ sandboxId, addHistory }) {
       execute();
       setRunCode(false);
     }
-  }, [runCode]);
+  }, [runCode, js]);
 
   return (
     <div
