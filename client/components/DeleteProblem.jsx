@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { useHistory } from 'react-router-dom';
 import { DeleteIcon } from '@chakra-ui/icons';
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import actions from '../actions/actions'
 
 function DeleteProblem({ currentProblem }) {
@@ -22,11 +22,13 @@ function DeleteProblem({ currentProblem }) {
   const toast = useToast();
   const history = useHistory();
   const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth)
 
   const handleDelete = () => {
    
       dispatch(actions.deleteProblem(currentProblem._id))
-   
+      onClose();
+      setTimeout(()=> dispatch(actions.getProblems(auth.user_id)), 100)
      }
    
 
