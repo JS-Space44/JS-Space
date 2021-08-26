@@ -47,4 +47,39 @@ apiController.getProblemFields = (req, res, next) => {
   });
 };
 
+apiController.deleteProblem = (req, res, next) => {
+  const { problem_id, user_id } = req.body;
+  const deleteProblemsQuery = {
+    text: `DELETE FROM "Test" WHERE problem_id = $1`,
+  };
+
+  const values = [problem_id];
+  db.query(deleteProblemsQuery, values, (err, qres) => {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+    res.locals.deletedProblem = qres;
+    console.log('res.locals from deleteProblem', res.locals);
+    return next();
+  });
+};
+
+apiController.deleteTestFromProblem = (req, res, next) => {
+  const { problem_id } = req.body;
+  const deleteTestFromProblem = {
+    text: `DELETE FROM "Problems" WHERE _id=$1;`,
+  };
+  const values = [problem_id];
+  db.query(deleteTestFromProblem, values, (err, qres) => {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+    res.locals.tests = qres;
+    console.log('res.locals from delete tests', res.locals);
+    return next();
+  });
+};
+
 module.exports = apiController;
