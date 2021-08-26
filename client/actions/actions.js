@@ -56,7 +56,7 @@ actions.getProblems = (user_id) => (dispatch) => {
   })
     .then((res) => res.json())
     .then((problems) => {
-      console.log('problems data', data);
+      console.log('problems data', problems);
       dispatch({
         type: types.GET_PROBLEMS,
         payload: { problems },
