@@ -19,6 +19,7 @@ import {
 import { CheckIcon } from '@chakra-ui/icons';
 import CreateNewProblem from './CreateNewProblem';
 import actions from '../actions/actions';
+let i = 0;
 
 const mapStateToProps = ({ business, auth }) => ({
   problems: business.problems,
@@ -74,7 +75,7 @@ function Sidebar({
             {problems.map((problem, idx) => (
               <Button
                 display="inline-block"
-                key={problem._id}
+                key={++i}
                 onClick={() => handleClick(problem._id)}
                 variant="ghost"
               >
@@ -84,7 +85,8 @@ function Sidebar({
                     <CheckIcon key={`check-${idx + 1} `} />
                   ) : null}
 
-                  <Text key={`prob-name-${idx + 1}`}>{problem.name}</Text>
+                  <Text key={`${i++}`}>{problem._id}</Text>
+                  <Text key={`${++i}`}>{problem.name}</Text>
                 </Flex>
               </Button>
             ))}
@@ -94,5 +96,7 @@ function Sidebar({
     </Drawer>
   );
 }
+
+
 
 export default connect(mapStateToProps, null)(Sidebar);
