@@ -28,9 +28,15 @@ router.post(
     return res.status(200).json(res.locals);
   }
 );
-router.post('/createProblem', apiController.createProblem, (req, res) => {
-  return res.status(200).json(res.locals.createdProblem);
-});
+router.post(
+  '/createProblem',
+  apiController.createProblem,
+  apiController.createTestForProblem,
+  apiController.updateTestIdForCreate,
+  (req, res) => {
+    return res.status(200).json(res.locals.createdProblem2);
+  }
+);
 
 router.post('/', (req, res) => {});
 

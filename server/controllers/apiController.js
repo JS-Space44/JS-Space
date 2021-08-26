@@ -14,18 +14,56 @@ rows [{
 */
 
 apiController.createProblem = (req, res, next) => {
-  const { user_id, problem_name, problem_description } = req.body;
+  const { user_id, name, description } = req.body;
 
   const createProblemsQuery = {
     text: `INSERT INTO "Problems" (user_id, name, description) VALUES ($1, $2, $3) RETURNING *`,
   };
-  const values = [user_id, problem_name, problem_description];
+  const values = [user_id, name, description];
   db.query(createProblemsQuery, values, (err, qres) => {
     if (err) {
       console.log(err);
       return next(err);
     }
     res.locals.createdProblem = qres.rows[0];
+    return next();
+  });
+};
+
+apiController.createTestForProblem = (req, res, next) => {
+  console.log('res.locals.createdProblem', res.locals.createdProblem);
+  const { _id } = res.locals.createdProblem;
+  const { tests } = req.body;
+  const createTestForProblemQuery = {
+    text: `INSERT INTO "Test" (func_with_args, problem_id) VALUES ($1, $2) RETURNING *`,
+  };
+  const values = [tests, _id];
+  db.query(createTestForProblemQuery, values, (err, qres) => {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+    res.locals.tests = qres.rows[0];
+    console.log('tests', res.locals.tests);
+    return next();
+  });
+};
+
+apiController.updateTestIdForCreate = (req, res, next) => {
+  const { _id } = res.locals.createdProblem;
+  const test_id_from_create = res.locals.tests._id;
+  console.log(' test_id_from_create', test_id_from_create);
+  const updateTestIdForCreateQuery = {
+    text: `UPDATE "Problems" SET test_id=$1 WHERE _id=$2 RETURNING *`,
+  };
+  const values = [test_id_from_create, _id];
+  db.query(updateTestIdForCreateQuery, values, (err, qres) => {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+    res.locals.createdProblem2 = qres.rows[0];
+    console.log('updatedtestIDFORCreate', res.locals);
     return next();
   });
 };
