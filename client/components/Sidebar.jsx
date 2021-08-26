@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
 import {
@@ -41,6 +41,13 @@ function Sidebar({
     dispatch(actions.setCurrentProblem(id));
     onClose();
   };
+
+  // useEffect(() => {
+  //   dispatch(actions.setCurrentProblem(id));
+  //   return () => {
+  //     cleanup;
+  //   };
+  // }, [dispatch, id, isLoggedIn]);
 
   return (
     <Drawer

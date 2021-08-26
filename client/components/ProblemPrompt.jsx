@@ -64,7 +64,7 @@ export default function ProblemPrompt({
                 {_id} - {name}
               </Heading>
               <Text mb={8}>{description}</Text>
-              <Tests tests={tests} />
+              <Tests currentProblem={currentProblem} />
             </TabPanel>
             {/* Solutions Tab */}
             <TabPanel>
