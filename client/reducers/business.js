@@ -45,6 +45,8 @@ const businessReducer = (state = initialState, action) => {
         problems: payload.problems,
       };
     }
+    default: 
+      return state;
   }
 };
 

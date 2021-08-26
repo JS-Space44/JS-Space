@@ -11,11 +11,11 @@ const editorReducer = (state = initialState, action) => {
       return { code: '' };
     }
     case types.LOAD_CODE: {
-      return Object.assign({}, state, {code: action.payload });
+      return {...state, code: action.payload};
     }
     case types.RUN_CODE: {
       console.log('RUN CODE');
-      return Object.assign({}, state, {runCode: action.payload});
+      return {...state, runCode: action.payload};
     }
 
     default:
