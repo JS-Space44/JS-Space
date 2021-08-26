@@ -35,7 +35,7 @@ router.get(
   '/logout',
   authController.logoutUser,
   (req, res) => {
-    return res.status(200).text('Logged out User');
+    return res.status(200).send('Logged out User');
   }
 )
 
