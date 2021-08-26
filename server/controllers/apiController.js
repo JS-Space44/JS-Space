@@ -68,11 +68,32 @@ apiController.updateTestIdForCreate = (req, res, next) => {
   });
 };
 
+//gets problems
+// apiController.getProblems = (req, res, next) => {
+//   const { user_id } = req.body;
+
+//   const getProblemsQuery = {
+//     text: `SELECT * FROM "Problems" WHERE user_id = $1`,
+//   };
+//   const values = [user_id];
+
+//   db.query(getProblemsQuery, values, (err, qres) => {
+//     if (err) {
+//       console.log(err);
+//       return next(err);
+//     }
+//     res.locals.problems = qres.rows;
+//     console.log('res.locals.problem', res.locals.problem);
+//     return next();
+//   });
+// };
+
+//get problems 2
 apiController.getProblems = (req, res, next) => {
   const { user_id } = req.body;
 
   const getProblemsQuery = {
-    text: `SELECT * FROM "Problems" WHERE user_id = $1`,
+    text: `SELECT * FROM "Test" INNER JOIN "Problems" ON "Test"."problem_id"="Problems"."_id" WHERE user_id=$1`,
   };
   const values = [user_id];
 
@@ -81,8 +102,50 @@ apiController.getProblems = (req, res, next) => {
       console.log(err);
       return next(err);
     }
-    res.locals.problems = qres.rows;
-    console.log('res.locals.problem', res.locals.problem);
+
+    let problemsArr = qres.rows;
+    problemsArr.forEach((e) => {
+      e.tests = [
+        {
+          _id: e.test_id,
+          funcWithArgs: e.func_with_args,
+        },
+      ];
+      e.solutions = [
+        {
+          _id: 0,
+          name: '',
+          description: '',
+          code: '',
+        },
+      ];
+      delete e.func_with_args;
+      delete e.problem_id;
+      delete e.test_id;
+      delete e.user_id;
+      delete e.test_id;
+    });
+    console.log('problemsArr', problemsArr);
+    res.locals.problems = problemsArr;
+    console.log('res.locals.problems', res.locals.problems);
+    return next();
+  });
+};
+
+apiController.getProblemTests = (req, res, next) => {
+  const { problem_id } = req.body;
+
+  const getTestIdsQuery = {
+    text: `SELECT * FROM "Test" WHERE problem_id=$1`,
+  };
+  const values = [problem_id];
+
+  db.query(getTestIdsQuery, values, (err, qres) => {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+    res.locals.tests = qres.rows;
     return next();
   });
 };

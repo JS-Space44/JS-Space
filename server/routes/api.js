@@ -11,6 +11,10 @@ router.post('/getProblems', apiController.getProblems, (req, res) => {
   return res.status(200).json(res.locals.problems);
 });
 
+router.post('/getTest', apiController.getProblemTests, (req, res) => {
+  return res.status(200).json(res.locals.tests);
+});
+
 router.delete(
   '/deleteProblem',
   apiController.deleteProblem,

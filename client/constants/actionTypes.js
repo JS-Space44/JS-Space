@@ -16,3 +16,4 @@ export const SIGNUP_USER = 'SIGNUP_USER';
 export const CLEAR_CODE = 'CLEAR_CODE';
 export const LOAD_CODE = 'LOAD_CODE';
 export const RUN_CODE = 'RUN_CODE';
+export const GET_TEST_FOR_PROBLEM = 'GET_TEST_FOR_PROBLEM';
