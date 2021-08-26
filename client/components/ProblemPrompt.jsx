@@ -34,7 +34,7 @@ export default function ProblemPrompt({
       draggable={draggable}
       problemName={name}
     >
-      <Flex direction="column" py={2}>
+      <Flex direction="column" p={6}>
         <Accordion allowToggle>
           <AccordionItem border="none">
             <h2>
@@ -60,7 +60,7 @@ export default function ProblemPrompt({
           <TabPanels>
             {/* Problem Tab */}
             <TabPanel>
-              <Heading mb={6}>
+              <Heading my={6}>
                 {_id} - {name}
               </Heading>
               <Text mb={8}>{description}</Text>

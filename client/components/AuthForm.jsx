@@ -40,20 +40,18 @@ const AuthForm = () => {
   function handleSubmit(event) {
     event.preventDefault();
     const { username, password, email } = values;
-    // submit
+
+    // call action for login
     if (login === true) {
       console.log('login == true');
-      // call action for login
 
       dispatch(actions.LoginUser(email, password));
       history.push('/');
     }
+    // call action for signup
     if (login === false) {
       console.log('login == false');
-
       dispatch(actions.signUpUser(username, password, email));
-
-      // call action for signup
     }
   }
 
