@@ -10,7 +10,7 @@ router.get(
   authController.setCookie,
   authController.checkCookie,
   (req, res) => {
-    return res.sendStatus(200);
+    return res.status(200).json(res.locals.sessionData);
   }
 );
 
