@@ -20,6 +20,8 @@ export default function WorkspaceModuleWrapper({
       m={0}
       border="1px"
       borderRadius="md"
+      minHeight="100%"
+      height="100%"
       borderColor="gray.200"
       backgroundColor="white"
       overflow="scroll"
