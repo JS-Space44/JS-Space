@@ -9,8 +9,8 @@ export default function WorkspaceModuleWrapper({
   toggleDrag,
   draggable,
 }) {
-  function handleClick() {
-    toggleDrag(moduleName);
+  function handleClick(name) {
+    toggleDrag(name);
   }
 
   return (
@@ -43,12 +43,12 @@ export default function WorkspaceModuleWrapper({
           <Text fontSize="sm">{problemName}</Text>
         </Box>
         <IconButton
-          icon={draggable ? <UnlockIcon /> : <LockIcon />}
+          icon={draggable ? <LockIcon /> : <UnlockIcon />}
           w={3}
           h={3}
           m={0}
           p={1}
-          onClick={handleClick}
+          onClick={() => handleClick(moduleName)}
           variant="ghost"
           color="gray.600"
         />
