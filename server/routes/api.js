@@ -20,6 +20,15 @@ router.delete(
   }
 );
 
+router.post(
+  '/updateProblem',
+  apiController.updateProblem,
+  apiController.updateTestForProblem,
+  (req, res) => {
+    return res.status(200).json(res.locals);
+  }
+);
+
 router.post('/', (req, res) => {});
 
 module.exports = router;
