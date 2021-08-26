@@ -14,36 +14,21 @@ import {
 } from '@chakra-ui/react';
 import { useHistory } from 'react-router-dom';
 import { DeleteIcon } from '@chakra-ui/icons';
+import {useDispatch} from 'react-redux'
+import actions from '../actions/actions'
 
 function DeleteProblem({ currentProblem }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const handleDelete = () => {
-    try {
-      // make delete request from db
-      // if successful change current problem to playground
-      // show toast
-      // call goes here...
-      // then(() => {
-      //   toast({
-      //     title: 'Problem deleted',
-      //     status: 'success',
-      //     duration: 4000,
-      //     isClosable: true,
-      //   });
-      // });
-    } catch (error) {
-      toast({
-        title: 'Something went wrong',
-        description: error,
-        status: 'error',
-        duration: 4000,
-        isClosable: true,
-      });
-    }
-  };
+   
+      dispatch(actions.deleteProblem(currentProblem._id))
+   
+     }
+   
 
   return (
     <>
