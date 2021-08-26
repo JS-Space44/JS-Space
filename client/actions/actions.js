@@ -148,7 +148,7 @@ actions.LoginUser = (email, password) => (dispatch) => {
     });
 };
 
-actions.LogoutUser = () => ({
+actions.logoutUser = () => ({
   type: types.LOGOUT_USER,
 });
 
