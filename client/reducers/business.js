@@ -8,6 +8,9 @@ const initialState = {
 
 const businessReducer = (state = initialState, action) => {
   switch (action.type) {
+    case types.ADD_PROBLEM: {
+      console.log('ADD PROBLEM ', action.payload);
+    }
     case types.SET_CURRENT_PROBLEM: {
       const newCurrentProblem = state.problems.find(
         (problem) => problem.id === action.payload

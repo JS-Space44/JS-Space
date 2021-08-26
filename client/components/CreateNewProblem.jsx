@@ -1,7 +1,8 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   Modal,
-  ModalOverlay,
+ModalOverlay,
   ModalContent,
   ModalHeader,
   ModalCloseButton,
@@ -20,6 +21,8 @@ import {
 } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
 
+import actions from '../actions/actions';
+
 const INITIAL_STATE = {
   name: '',
   description: '',
@@ -27,10 +30,25 @@ const INITIAL_STATE = {
 };
 
 function CreateNewProblem() {
+  const dispatch = useDispatch();
+  const currUser = useSelector((state) => state.auth.user_id);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  // create refs to input fields, to later get their values on submit
+  const nameRef = React.createRef();
+  const descRef = React.createRef();
+  const testsRef = React.createRef();
 
   function handleSubmit() {
     // on submit
+    const args = [
+      currUser,
+      nameRef.current.value,
+      descRef.current.value,
+      testsRef.current.value,
+    ];
+    return dispatch(actions.createProblem(...args));
   }
 
   return (
@@ -52,6 +70,7 @@ function CreateNewProblem() {
                 <FormControl>
                   <FormLabel htmlFor="name">Name: </FormLabel>
                   <Input
+                    ref={nameRef}
                     name="name"
                     variant="outline"
                     placeholder="Problem Name"
@@ -64,6 +83,7 @@ function CreateNewProblem() {
                 <FormLabel htmlFor="description">Description: </FormLabel>
 
                 <Textarea
+                  ref={descRef}
                   id="description"
                   name="description"
                   variant="outline"
@@ -75,6 +95,7 @@ function CreateNewProblem() {
                 <FormControl>
                   <FormLabel htmlFor="name">Test Case: </FormLabel>
                   <Input
+                    ref={testsRef}
                     name="test"
                     variant="outline"
                     placeholder="Enter Code"
