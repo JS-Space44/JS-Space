@@ -152,10 +152,10 @@ actions.LogoutUser = () => ({
   type: types.LOGOUT_USER,
 });
 
-actions.setCurrentProblem = (id) => (dispatch) => {
+actions.setCurrentProblem = (_id) => (dispatch) => {
   dispatch({
     type: types.SET_CURRENT_PROBLEM,
-    payload: id,
+    payload: _id,
   });
 };
 

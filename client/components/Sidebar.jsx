@@ -74,14 +74,14 @@ function Sidebar({
             {problems.map((problem, idx) => (
               <Button
                 display="inline-block"
-                key={problem.id}
-                onClick={() => handleClick(problem.id)}
+                key={problem._id}
+                onClick={() => handleClick(problem._id)}
                 variant="ghost"
               >
                 <Flex justifyContent="space-between">
-                  {currentProblem.id === problem.id ? <CheckIcon key={`check-${idx}`}/> : null}
+                  {currentProblem._id === problem._id ? <CheckIcon key={`check-${idx}`}/> : null}
 
-                  <Text key={`prob-id-${idx}`}>{problem.id}</Text>
+                  <Text key={`prob-id-${idx}`}>{problem._id}</Text>
                   <Text key={`prob-name-${idx}`}>{problem.name}</Text>
                 </Flex>
               </Button>
