@@ -24,7 +24,7 @@ export default function ProblemPrompt({
   toggleDrag,
   draggable,
 }) {
-  const { id, name, description, tests } = currentProblem;
+  const { _id, name, description, tests } = currentProblem;
 
   function handleEdit() {
     console.log('edit');
@@ -79,7 +79,7 @@ export default function ProblemPrompt({
             {/* Problem Tab */}
             <TabPanel>
               <Heading mb={6}>
-                {id} - {name}
+                {_id} - {name}
               </Heading>
               <Text mb={8}>{description}</Text>
               <Tests tests={tests} />
