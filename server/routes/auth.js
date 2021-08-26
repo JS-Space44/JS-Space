@@ -7,7 +7,6 @@ const authController = require('../controllers/authController');
 
 router.get(
   '/',
-  authController.setCookie,
   authController.checkCookie,
   (req, res) => {
     return res.status(200).json(res.locals.sessionData);
@@ -31,5 +30,13 @@ router.post(
     return res.status(200).json(res.locals);
   }
 );
+
+router.get(
+  '/logout',
+  authController.logoutUser,
+  (req, res) => {
+    return res.status(200).text('Logged out User');
+  }
+)
 
 module.exports = router;

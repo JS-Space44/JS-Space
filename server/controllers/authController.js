@@ -6,19 +6,18 @@ const fs = require('fs');
 
 const authController = {};
 
-//cookies dont seem to set with the hash router  prob need to have auth all handled by backend
-
-authController.setCookie = (req, res, next) => {
-  res.cookie('test', 'cookie');
-  console.log('setCookie()');
-  return next();
-};
-
 authController.checkCookie = (req, res, next) => {
   // console.log('CHECK COOKIE req.cookies', req.cookies);
   const { Session } = req.cookies;
-  const decoded = jwt.verify(Session, config.get('JWT_SECRET'));
+  let decoded = {};
+
+  jwt.verify(Session, config.get('JWT_SECRET'), (err, token) => {
+    if (!err) decoded = token;
+    else decoded = 'No user logged in';
+  });
+
   res.locals.sessionData = decoded;
+
   return next();
 };
 
@@ -73,6 +72,11 @@ authController.loginUser = (req, res, next) => {
     }
   });
 };
+
+authController.logoutUser = (req, res, next) => {
+  res.clearCookie('Session');
+  return next();
+}
 
 // takes a JSON object with email, password, user_name
 authController.createUser = (req, res, next) => {
