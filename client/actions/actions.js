@@ -67,10 +67,38 @@ actions.getProblems = (user_id) => (dispatch) => {
 // gets called on login - state holding array of problems
 // need get problems sql call
 
-actions.updateProblems = () => ({
-  type: types.UPDATE_PROBLEM,
-  payload: '',
-});
+actions.updateProblems =
+  (problem_id, user_id, name, description, tests) => (dispatch) => {
+    const updateProblemObj = {
+      problem_id,
+      user_id,
+      name,
+      description,
+      tests,
+    };
+    fetch('/api/updateProblem', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'Application/JSON',
+      },
+      body: JSON.stringify(updateProblemObj),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({
+          type: types.UPDATE_PROBLEM,
+          payload: updateProblemObj,
+        });
+      })
+      .catch((err) => {
+        console.log('err in updateProblem action', err);
+      });
+  };
+
+//   ({
+//   type: types.UPDATE_PROBLEM,
+//   payload: '',
+// });
 
 actions.signUpUser = (user_name, password, email) => (dispatch) => {
   // const { email, user_name, password } = valuesObject;

@@ -45,22 +45,6 @@ const businessReducer = (state = initialState, action) => {
         problems: payload.problems,
       };
     }
-    case types.CLEAR_CODE: {
-      const currentProblem = state.problems.find(
-        (problem) => problem.id === action.payload.problem_id
-      );
-      const clearedCode = currentProblem.solutions.find((solution) => {
-        solution.id === action.payload.solution_id;
-      });
-      clearedCode.code = '';
-      return {
-        ...state,
-        problems, /// I dont think this will work
-      };
-    }
-    default: {
-      return state;
-    }
   }
 };
 
