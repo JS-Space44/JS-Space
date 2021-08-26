@@ -28,24 +28,77 @@ actions.createProblem = (user_id, name, description, tests) => (dispatch) => {
     });
 };
 
-actions.deleteProblem = () => ({
-  type: types.DELETE_PROBLEM,
-  payload: '',
-});
+actions.deleteProblem = (problem_id, user_id) => (dispatch) => {
+  fetch('/api/deleteProblem', {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'Application/JSON' },
+    body: JSON.stringify({ problem_id, user_id }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      dispatch({
+        type: types.DELETE_PROBLEM,
+        payload: { problem_id, user_id },
+      });
+    })
+    .catch((err) => {
+      console.log('err in delete problem', err);
+    });
+};
+// type: types.DELETE_PROBLEM,
+// payload: '',
 
-actions.getProblems = () => ({
-  type: types.GET_PROBLEMS,
-  payload: '',
+actions.getProblems = (user_id) => (dispatch) => {
+  fetch('/api/getProblems', {
+    method: 'POST',
+    headers: { 'Content-Type': 'Application/JSON' },
+    body: JSON.stringify({ user_id }),
+  })
+    .then((res) => res.json())
+    .then((problems) => {
+      console.log('problems data', data);
+      dispatch({
+        type: types.GET_PROBLEMS,
+        payload: { problems },
+      });
+    });
+};
+// get problem based on user_name or user_id
+// gets called on login - state holding array of problems
+// need get problems sql call
 
-  // get problem based on user_name or user_id
-  // gets called on login - state holding array of problems
-  // need get problems sql call
-});
+actions.updateProblems =
+  (problem_id, user_id, name, description, tests) => (dispatch) => {
+    const updateProblemObj = {
+      problem_id,
+      user_id,
+      name,
+      description,
+      tests,
+    };
+    fetch('/api/updateProblem', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'Application/JSON',
+      },
+      body: JSON.stringify(updateProblemObj),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({
+          type: types.UPDATE_PROBLEM,
+          payload: updateProblemObj,
+        });
+      })
+      .catch((err) => {
+        console.log('err in updateProblem action', err);
+      });
+  };
 
-actions.updateProblems = () => ({
-  type: types.UPDATE_PROBLEM,
-  payload: '',
-});
+//   ({
+//   type: types.UPDATE_PROBLEM,
+//   payload: '',
+// });
 
 actions.signUpUser = (user_name, password, email) => (dispatch) => {
   // const { email, user_name, password } = valuesObject;
@@ -106,6 +159,7 @@ actions.setCurrentProblem = (id) => (dispatch) => {
   });
 };
 
+// This all happens in the Editor reducer
 actions.clearCode = () => ({
   type: types.CLEAR_CODE,
   payload: '',

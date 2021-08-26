@@ -18,8 +18,11 @@ const businessReducer = (state = initialState, action) => {
         current: newCurrentProblem,
       };
     }
-    default: {
-      return state;
+    case types.GET_PROBLEMS: {
+      return {
+        ...state,
+        problems: payload.problems,
+      };
     }
   }
 };
