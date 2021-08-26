@@ -21,7 +21,7 @@ const businessReducer = (state = initialState, action) => {
     case types.GET_PROBLEMS: {
       return {
         ...state,
-        problems: action.payload.problems,
+        problems: [...state.problems, ...action.payload],
       };
     }
 

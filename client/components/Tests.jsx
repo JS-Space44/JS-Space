@@ -9,7 +9,7 @@ export default function Test({ tests }) {
   }, []);
   return (
     <Box>
-      {tests.map((test, index) => (
+      {tests && tests.map((test, index) => (
         <Box key={`test-${index + 1}`} mb={6}>
           <pre style={{ borderRadius: '4px', display: 'block' }}>
             <Code className="language-javascript"> {test.funcWithArgs}</Code>

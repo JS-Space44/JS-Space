@@ -59,7 +59,7 @@ actions.getProblems = (user_id) => (dispatch) => {
       console.log('problems data', problems);
       dispatch({
         type: types.GET_PROBLEMS,
-        payload: { problems },
+        payload: problems,
       });
     });
 };
