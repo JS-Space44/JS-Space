@@ -2,24 +2,28 @@ import {
   Heading,
   Text,
   Flex,
+  Accordion,
+  AccordionItem,
+  AccordionPanel,
+  AccordionButton,
   Box,
-  Menu,
-  MenuButton,
   Tabs,
   TabList,
   Tab,
   TabPanels,
   TabPanel,
-  MenuItem,
-  MenuList,
   IconButton,
 } from '@chakra-ui/react';
 import React from 'react';
-import { EditIcon, HamburgerIcon, DeleteIcon } from '@chakra-ui/icons';
+import { EditIcon, DeleteIcon, SettingsIcon } from '@chakra-ui/icons';
 import WorkspaceModuleWrapper from './WorkspaceModuleWrapper';
 import Tests from './Tests';
 
-export default function ProblemPrompt({ currentProblem }) {
+export default function ProblemPrompt({
+  currentProblem,
+  toggleDrag,
+  draggable,
+}) {
   const { id, name, description, tests } = currentProblem;
 
   function handleEdit() {
@@ -31,32 +35,41 @@ export default function ProblemPrompt({ currentProblem }) {
   }
 
   return (
-    <WorkspaceModuleWrapper moduleName="problem prompt" problemName={name}>
-      <Flex direction="column" p={8}>
-        {/* menu */}
-        <Box alignSelf="flex-end">
-          <Menu placement="left-start">
-            <MenuButton
-              as={IconButton}
-              aria-label="Options"
-              icon={<HamburgerIcon />}
-              variant="outline"
-            />
-            <MenuList>
-              <MenuItem icon={<EditIcon />} onClick={handleEdit} command="⌘E">
-                Edit...
-              </MenuItem>
-              <MenuItem
-                icon={<DeleteIcon />}
-                onClick={handleDelete}
-                command="⌘D"
-              >
-                Delete...
-              </MenuItem>
-            </MenuList>
-          </Menu>
-        </Box>
-        {/* tabs */}
+    <WorkspaceModuleWrapper
+      moduleName="problem prompt"
+      toggleDrag={toggleDrag}
+      draggable={draggable}
+      problemName={name}
+    >
+      <Flex direction="column" py={2}>
+        <Accordion allowToggle>
+          <AccordionItem border="none">
+            <h2>
+              <AccordionButton>
+                <Box flex="1" textAlign="left" />
+                <SettingsIcon />
+              </AccordionButton>
+            </h2>
+            <AccordionPanel pb={4}>
+              <Flex justifyContent="flex-end">
+                <IconButton
+                  icon={<EditIcon />}
+                  onClick={handleEdit}
+                  w={6}
+                  h={6}
+                />
+                <IconButton
+                  icon={<DeleteIcon />}
+                  onClick={handleDelete}
+                  w={6}
+                  h={6}
+                  ml={2}
+                />
+              </Flex>
+            </AccordionPanel>
+          </AccordionItem>
+        </Accordion>
+
         <Tabs>
           <TabList>
             <Tab>Problem</Tab>
