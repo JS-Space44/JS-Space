@@ -79,7 +79,7 @@ export default function ProblemPrompt({
             {/* Problem Tab */}
             <TabPanel>
               <Heading mb={6}>
-                {id} - {name}
+                {_id} - {name}
               </Heading>
               <Text mb={8}>{description}</Text>
               <Tests tests={tests} />
