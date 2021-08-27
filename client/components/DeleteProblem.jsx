@@ -29,7 +29,7 @@ function DeleteProblem({ currentProblem }) {
     try {
       dispatch(actions.deleteProblem(currentProblem._id));
       toast({
-        title: 'List deleted',
+        title: 'Problem deleted',
         status: 'success',
         duration: 2000,
         isClosable: true,
