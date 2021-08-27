@@ -181,13 +181,12 @@ actions.verifyLogin = () => (dispatch) => {
 
 actions.logoutUser = () => (dispatch) => {
   return fetch('/auth/logout', {
-    method: 'GET'
-  })
-    .then(() => {
-      dispatch({
-        type: types.LOGOUT_USER,
-      });
+    method: 'GET',
+  }).then(() => {
+    dispatch({
+      type: types.LOGOUT_USER,
     });
+  });
 };
 
 actions.setCurrentProblem = (_id) => (dispatch) => {

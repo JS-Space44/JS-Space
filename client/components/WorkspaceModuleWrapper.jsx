@@ -9,8 +9,8 @@ export default function WorkspaceModuleWrapper({
   toggleDrag,
   draggable,
 }) {
-  function handleClick(name) {
-    toggleDrag(name);
+  function handleClick() {
+    toggleDrag(moduleName);
   }
 
   return (
@@ -20,10 +20,9 @@ export default function WorkspaceModuleWrapper({
       m={0}
       border="1px"
       borderRadius="md"
-      // minHeight="100%"
       height="100%"
       borderColor="gray.200"
-      backgroundColor="white"
+      backgroundColor={moduleName === 'terminal' ? '#304148' : 'white'}
       overflow="scroll"
     >
       <Flex
@@ -46,7 +45,7 @@ export default function WorkspaceModuleWrapper({
           icon={draggable ? <LockIcon /> : <UnlockIcon />}
           size="sm"
           m={0}
-          onClick={() => handleClick(moduleName)}
+          onClick={handleClick}
           variant="ghost"
           color="gray.600"
         />

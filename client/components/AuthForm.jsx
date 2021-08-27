@@ -12,6 +12,7 @@ import {
   TabPanels,
   Input,
   Button,
+  useToast,
   FormControl,
 } from '@chakra-ui/react';
 import actions from '../actions/actions';
@@ -25,7 +26,7 @@ const INITIAL_STATE = {
 const AuthForm = () => {
   const [login, setLogin] = useState(true);
   const [values, setValues] = useState(INITIAL_STATE);
-
+  const toast = useToast();
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -41,17 +42,38 @@ const AuthForm = () => {
     event.preventDefault();
     const { username, password, email } = values;
 
-    // call action for login
-    if (login === true) {
-      console.log('login == true');
-
-      dispatch(actions.LoginUser(email, password));
-      history.push('/');
-    }
-    // call action for signup
-    if (login === false) {
-      console.log('login == false');
-      dispatch(actions.signUpUser(username, password, email));
+    try {
+      // call action for login
+      if (login === true) {
+        console.log('login == true');
+        dispatch(actions.LoginUser(email, password));
+        toast({
+          title: 'Logged in!',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        });
+        history.push('/');
+      }
+      // call action for signup
+      if (login === false) {
+        console.log('login == false');
+        dispatch(actions.signUpUser(username, password, email));
+        toast({
+          title: 'Registered!',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      toast({
+        title: 'Something went wrong',
+        description: error,
+        status: 'error',
+        duration: 4000,
+        isClosable: true,
+      });
     }
   }
 
@@ -60,7 +82,7 @@ const AuthForm = () => {
       <Box
         mt={20}
         position="relative"
-        width="680px"
+        width="550px"
         border="1px solid"
         borderColor="gray.200"
       >
@@ -68,7 +90,7 @@ const AuthForm = () => {
           <Heading fontSize="lg" mb={4}>
             {login ? 'Login' : 'Create account'}
           </Heading>
-          <Tabs mt={4} isFitted>
+          <Tabs mt={4} isFitted width="100%">
             <TabList mb={6}>
               <Tab
                 onClick={() => {
@@ -116,7 +138,7 @@ const AuthForm = () => {
                       type="submit"
                       mt={6}
                       width="100%"
-                      colorScheme="teal"
+                      colorScheme="linkedin"
                     >
                       Login
                     </Button>
@@ -162,7 +184,7 @@ const AuthForm = () => {
                       mt={5}
                       width="100%"
                       variant="outline"
-                      colorScheme="teal"
+                      colorScheme="linkedin"
                     >
                       Register
                     </Button>

@@ -1,4 +1,4 @@
-import { Box, Button, List, ListIcon, ListItem } from '@chakra-ui/react';
+import { Box, Button, Flex, List, ListIcon, ListItem } from '@chakra-ui/react';
 import React from 'react';
 import { ChevronRightIcon } from '@chakra-ui/icons';
 import WorkspaceModuleWrapper from './WorkspaceModuleWrapper';
@@ -16,22 +16,23 @@ export default function Terminal({
       problemName={name}
       toggleDrag={toggleDrag}
     >
-      <Box>
-        <Box>
-          <List>
-            {history.map((outputLine, index) => (
-              <ListItem key={`outputLine -${index + 1}`}>
-                <ListIcon as={ChevronRightIcon} color="green.500" />
-                {outputLine}
-              </ListItem>
-            ))}
-            <ListItem>
+      <Flex direction="column" height="100%">
+        <List m={2}>
+          {history.map((outputLine, index) => (
+            <ListItem key={`outputLine -${index + 1}`} color="white">
               <ListIcon as={ChevronRightIcon} color="green.500" />
+              {outputLine}
             </ListItem>
-          </List>
-        </Box>
-        <Button onClick={clearHistory}>Clear</Button>
-      </Box>
+          ))}
+          <ListItem>
+            <ListIcon as={ChevronRightIcon} color="green.500" />
+          </ListItem>
+        </List>
+
+        <Button mt={8} mr={4} alignSelf="flex-end" onClick={clearHistory}>
+          Clear
+        </Button>
+      </Flex>
     </WorkspaceModuleWrapper>
   );
 }

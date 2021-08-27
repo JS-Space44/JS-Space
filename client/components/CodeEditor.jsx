@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Controlled as CodeMirror } from 'react-codemirror2';
 import debounce from 'lodash.debounce';
-import { Button, Flex } from '@chakra-ui/react';
+import { Button, Flex, Box } from '@chakra-ui/react';
 import actions from '../actions/actions';
 import WorkspaceModuleWrapper from './WorkspaceModuleWrapper';
 import 'codemirror/addon/edit/matchbrackets';
@@ -43,26 +43,30 @@ export default function CodeEditor({ language, currentProblem, toggleDrag }) {
       problemName={name}
       toggleDrag={toggleDrag}
     >
-      <CodeMirror
-        value={value}
-        options={{
-          mode: language,
-          theme: 'oceanic-next',
-          scrollbarStyle: 'native',
-          lineNumbers: true,
-          lint: true,
-          hintOptions: true,
-          fontSize: '16px',
-          matchBrackets: true,
-          autoCloseBrackets: true,
-          indentUnit: 2,
-          tabSize: 2,
-        }}
-        onBeforeChange={handleChange}
-      />
-      <Flex>
-        <Button onClick={() => setRunCode(true)}>Run</Button>
-        {/* <Button onClick={() => clearCode()}>Clear</Button> */}
+      <Flex direction="column" height="100%" backgroundColor="#304148">
+        <CodeMirror
+          value={value}
+          options={{
+            mode: language,
+            theme: 'oceanic-next',
+            scrollbarStyle: 'native',
+            lineNumbers: true,
+            lint: true,
+            hintOptions: true,
+            fontSize: '16px',
+            matchBrackets: true,
+            autoCloseBrackets: true,
+            indentUnit: 2,
+            tabSize: 2,
+          }}
+          onBeforeChange={handleChange}
+        />
+        <Box alignSelf="flex-end" mr={4}>
+          <Button onClick={() => setRunCode(true)}>Run</Button>
+          <Button ml={4} onClick={() => clearCode()}>
+            Clear
+          </Button>
+        </Box>
       </Flex>
     </WorkspaceModuleWrapper>
   );
