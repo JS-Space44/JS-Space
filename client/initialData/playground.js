@@ -14,7 +14,7 @@ export default {
   tests: [
     {
       _id: 1,
-      funcWithArgs: 'maxValue([4, 7, 2, 8, 10, 9]); // -> 10',
+      funcWithArgs: 'playground(input => return input === `fun`)); // -> true',
     },
   ],
 };

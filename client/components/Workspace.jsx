@@ -54,7 +54,7 @@ function Workspace({ currentProblem, isLoggedIn, userId }) {
   }
 
   return (
-    <Flex height="100%" minHeight="100vh" margin="0px" backgroundImage={bg}>
+    <Flex height="100%" minHeight="100vh" p={2} backgroundImage={bg}>
       {/* problem prompt */}
       <Rnd
         default={{

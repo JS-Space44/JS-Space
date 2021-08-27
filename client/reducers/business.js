@@ -10,6 +10,9 @@ const businessReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.ADD_PROBLEM: {
       console.log('ADD PROBLEM ', action.payload);
+      return {
+        ...state,
+      };
     }
     case types.SET_CURRENT_PROBLEM: {
       const newCurrentProblem = state.problems.find(
@@ -24,19 +27,9 @@ const businessReducer = (state = initialState, action) => {
     case types.GET_PROBLEMS: {
       return {
         ...state,
-        problems: [...action.payload],
+        problems: [...state.problems, ...action.payload],
       };
     }
-    // case types.GET_TEST_FOR_PROBLEM: {
-    //   console.log('GET_TEST_FOR_PROBLEM', action.payload);
-    //   let current = state.current;
-    //   current.tests = action.payload;
-    //   return {
-    //     ...state,
-    //     current,
-    //   };
-    // }
-
     default:
       return state;
   }

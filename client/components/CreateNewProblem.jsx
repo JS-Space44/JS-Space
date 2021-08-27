@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Modal,
-ModalOverlay,
+  ModalOverlay,
   ModalContent,
   ModalHeader,
   ModalCloseButton,
@@ -17,6 +17,7 @@ ModalOverlay,
   FormControl,
   Text,
   Textarea,
+  useToast,
   Flex,
 } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
@@ -32,6 +33,7 @@ const INITIAL_STATE = {
 function CreateNewProblem() {
   const dispatch = useDispatch();
   const currUser = useSelector((state) => state.auth.user_id);
+  const toast = useToast();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -48,7 +50,25 @@ function CreateNewProblem() {
       descRef.current.value,
       testsRef.current.value,
     ];
-    return dispatch(actions.createProblem(...args));
+
+    try {
+      onClose();
+      dispatch(actions.createProblem(...args));
+      toast({
+        title: 'List deleted',
+        status: 'success',
+        duration: 4000,
+        isClosable: true,
+      });
+    } catch (error) {
+      toast({
+        title: 'Something went wrong',
+        description: error,
+        status: 'error',
+        duration: 4000,
+        isClosable: true,
+      });
+    }
   }
 
   return (

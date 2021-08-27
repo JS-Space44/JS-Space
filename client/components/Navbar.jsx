@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
@@ -9,8 +9,8 @@ import {
   Button,
   Text,
   Image,
+  useToast,
   useDisclosure,
-  IconButton,
 } from '@chakra-ui/react';
 import { HamburgerIcon } from '@chakra-ui/icons';
 import logo from '../assets/spacejs-logo.png';
@@ -21,8 +21,31 @@ function NavBar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const history = useHistory();
+  const toast = useToast();
   const logoutUser = () => dispatch(actions.logoutUser());
   const btnRef = React.useRef();
+
+  const handleLogout = () => {
+    try {
+      logoutUser();
+      toast({
+        title: 'Logged out!',
+        status: 'success',
+        duration: 4000,
+        isClosable: true,
+      });
+      history.push('/');
+    } catch (error) {
+      toast({
+        title: 'Something went wrong',
+        description: error,
+        status: 'error',
+        duration: 4000,
+        isClosable: true,
+      });
+    }
+  };
 
   return (
     <Flex
@@ -61,7 +84,7 @@ function NavBar() {
           </Heading>
         </Link>
       ) : (
-        <Button variant="outline" onClick={logoutUser}>
+        <Button variant="outline" onClick={handleLogout}>
           Logout
         </Button>
       )}
