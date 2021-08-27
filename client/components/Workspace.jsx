@@ -9,6 +9,7 @@ import CodeRunner from './CodeRunner';
 import Terminal from './Terminal';
 import bg from '../assets/bg.png';
 import actions from '../actions/actions';
+import GridLayout from 'react-grid-layout';
 
 const mapStateToProps = ({ business, auth }) => ({
   problems: business.problems,
@@ -53,91 +54,46 @@ function Workspace({ currentProblem, isLoggedIn, userId }) {
     }
   }
 
+
+  const layout = [
+    { i: 'problemPrompt', x: 0, y: 0, w: 100, h: 100 },
+    { i: 'excaliDraw', x: 0, y: 1, w: 1, h: 2 },
+    { i: 'codeEditor', x: 1, y: 0, w: 3, h: 2, minW: 2, maxW: 4 },
+    { i: 'terminal', x: 1, y: 1, w: 3, h: 2, minW: 2, maxW: 4 },
+  ];
+
   return (
-    <Flex height="100%" minHeight="100vh" margin="0px" backgroundImage={bg}>
-      {/* problem prompt */}
-      <Rnd
-        default={{
-          x: 30,
-          y: 30,
-          width: '45%',
-          height: 425,
-        }}
-        bounds="parent"
-        resizeGrid={[10, 10]}
-        dragGrid={[10, 10]}
-        disableDragging={problemPromptDraggable}
-      >
+    <GridLayout className="layout" cols={3} rowHeight={400} width={1920}>
+      <div key='problemPrompt'>
         <ProblemPrompt
           toggleDrag={toggleModuleDrag}
           draggable={problemPromptDraggable}
           currentProblem={currentProblem}
         />
-      </Rnd>
-      {/* excalidraw */}
-      <Rnd
-        default={{
-          x: 30,
-          y: 500,
-          width: '45%',
-          height: 525,
-        }}
-        bounds="parent"
-        resizeGrid={[10, 10]}
-        dragGrid={[10, 10]}
-        disableDragging={excalidrawDraggable}
-      >
-        <ExcalidrawJS
-          toggleDrag={toggleModuleDrag}
-          draggable={excalidrawDraggable}
-        />
-      </Rnd>
-
-      {/* code editor */}
-      <Rnd
-        default={{
-          x: 900,
-          y: 30,
-          width: '45%',
-          height: 425,
-        }}
-        bounds="parent"
-        resizeGrid={[10, 10]}
-        dragGrid={[10, 10]}
-        disableDragging={codeEditorDraggable}
-      >
-        <CodeEditor
-          language="javascript"
-          currentProblem={currentProblem}
-          toggleDrag={toggleModuleDrag}
-          draggable={codeEditorDraggable}
-        />
-      </Rnd>
-
-      {/* iframe for running code in the background */}
-      <CodeRunner />
-
-      {/* terminal */}
-      <Rnd
-        default={{
-          x: 900,
-          y: 500,
-          width: '45%',
-          height: 525,
-        }}
-        bounds="parent"
-        resizeGrid={[10, 10]}
-        dragGrid={[10, 10]}
-        disableDragging={terminalDraggable}
-      >
-        <Terminal
-          history={history}
-          currentProblem={currentProblem}
-          toggleDrag={toggleModuleDrag}
-          draggable={terminalDraggable}
-        />
-      </Rnd>
-    </Flex>
+      </div>
+      <div key='excaliDraw'>
+      <ExcalidrawJS
+        toggleDrag={toggleModuleDrag}
+        draggable={excalidrawDraggable}
+      />
+      </div>
+      <div key='codeEditor'>
+      <CodeEditor
+        language="javascript"
+        currentProblem={currentProblem}
+        toggleDrag={toggleModuleDrag}
+        draggable={codeEditorDraggable}
+      />
+      </div>
+      <div key='terminal'>
+      <Terminal
+        history={history}
+        currentProblem={currentProblem}
+        toggleDrag={toggleModuleDrag}
+        draggable={terminalDraggable}
+      />
+      </div>
+    </GridLayout>
   );
 }
 
