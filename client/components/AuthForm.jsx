@@ -82,7 +82,7 @@ const AuthForm = () => {
       <Box
         mt={20}
         position="relative"
-        width="680px"
+        width="550px"
         border="1px solid"
         borderColor="gray.200"
       >
