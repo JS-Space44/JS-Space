@@ -37,6 +37,7 @@ const AuthForm = () => {
     }));
   }
 
+//for handling submit
   function handleSubmit(event) {
     event.preventDefault();
     const { username, password, email } = values;
