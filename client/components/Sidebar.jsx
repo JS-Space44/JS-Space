@@ -85,7 +85,7 @@ function Sidebar({
                     <CheckIcon key={`check-${idx + 1} `} />
                   ) : null}
 
-                  <Text key={`${i++}`}>{problem._id}</Text>
+                  
                   <Text key={`${++i}`}>{problem.name}</Text>
                 </Flex>
               </Button>

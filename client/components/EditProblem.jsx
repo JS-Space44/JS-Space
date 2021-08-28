@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -27,19 +27,33 @@ import actions from '../actions/actions';
 const INITIAL_STATE = {
   name: '',
   description: '',
-  tests: [],
+  tests: [""],
 };
 
 function EditProblem({ currentProblem }) {
+  
   const dispatch = useDispatch();
   const { _id, name, description, tests } = currentProblem;
-
+  let currentState = useSelector((state)=> state.business.current)
+  console.log(currentState)
+  const [values, setValues] = useState({...currentState})
   const { isOpen, onOpen, onClose } = useDisclosure();
+  console.log(values, "values")
 
   // create refs to input fields, to later get their values on submit
   const nameRef = React.createRef();
   const descRef = React.createRef();
   const testsRef = React.createRef();
+
+  function handleChange(event) {
+    event.persist();
+    setValues((previousValues) => ({
+      ...previousValues,
+      [event.target.name]: event.target.value,
+    }));
+  }
+
+
 
   function handleSubmit() {
     // on submit
@@ -71,8 +85,9 @@ function EditProblem({ currentProblem }) {
                 <FormControl>
                   <FormLabel htmlFor="name">Name: </FormLabel>
                   <Input
+                    onChange={handleChange}
                     ref={nameRef}
-                    value={name}
+                    value={currentState.name}
                     name="name"
                     variant="outline"
                     placeholder="Problem Name"
@@ -85,9 +100,10 @@ function EditProblem({ currentProblem }) {
                 <FormLabel htmlFor="description">Description: </FormLabel>
 
                 <Textarea
+                onChange={handleChange}
                   ref={descRef}
                   id="description"
-                  value={description}
+                  value={values.description}
                   name="description"
                   variant="outline"
                   placeholder="Problem Description"
@@ -98,9 +114,10 @@ function EditProblem({ currentProblem }) {
                 <FormControl>
                   <FormLabel htmlFor="name">Test Case: </FormLabel>
                   <Input
+                  onChange={handleChange}
                     ref={testsRef}
                     name="test"
-                    value={tests}
+                    value={values.tests[0]}
                     variant="outline"
                     placeholder="Enter Code"
                     type="string"
