@@ -7,7 +7,7 @@ import App from './App';
 import store from './store';
 
 //main app
-
+// provider and app
 render(
   <Provider store={store}>
     <App />
